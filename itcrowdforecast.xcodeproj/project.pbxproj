@@ -13,8 +13,7 @@
 		EEB87460209D15B60055981A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EEB8745E209D15B60055981A /* LaunchScreen.storyboard */; };
 		EEB8746B209D15B60055981A /* itcrowdforecastTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB8746A209D15B60055981A /* itcrowdforecastTests.swift */; };
 		EEB874AD209DDC7E0055981A /* CityListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB874AC209DDC7E0055981A /* CityListViewController.swift */; };
-		EEB874B2209DDCAA0055981A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB874AE209DDCAA0055981A /* ViewController.swift */; };
-		EEB874B3209DDCAA0055981A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EEB874B0209DDCAA0055981A /* Main.storyboard */; };
+		EEB874B5209DDE630055981A /* CityDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB874B4209DDE630055981A /* CityDetailViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,8 +39,7 @@
 		EEB8746A209D15B60055981A /* itcrowdforecastTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = itcrowdforecastTests.swift; sourceTree = "<group>"; };
 		EEB8746C209D15B60055981A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EEB874AC209DDC7E0055981A /* CityListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityListViewController.swift; sourceTree = "<group>"; };
-		EEB874AE209DDCAA0055981A /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		EEB874B1209DDCAA0055981A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Main.storyboard; sourceTree = "<group>"; };
+		EEB874B4209DDE630055981A /* CityDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityDetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -133,9 +131,8 @@
 		EEB874A8209DDBA20055981A /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				EEB874AF209DDCAA0055981A /* Base.lproj */,
-				EEB874AE209DDCAA0055981A /* ViewController.swift */,
 				EEB874AC209DDC7E0055981A /* CityListViewController.swift */,
+				EEB874B4209DDE630055981A /* CityDetailViewController.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -145,14 +142,6 @@
 			children = (
 			);
 			path = Models;
-			sourceTree = "<group>";
-		};
-		EEB874AF209DDCAA0055981A /* Base.lproj */ = {
-			isa = PBXGroup;
-			children = (
-				EEB874B0209DDCAA0055981A /* Main.storyboard */,
-			);
-			path = Base.lproj;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -237,7 +226,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EEB874B3209DDCAA0055981A /* Main.storyboard in Resources */,
 				EEB87460209D15B60055981A /* LaunchScreen.storyboard in Resources */,
 				EEB8745D209D15B60055981A /* Assets.xcassets in Resources */,
 			);
@@ -291,8 +279,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EEB874B2209DDCAA0055981A /* ViewController.swift in Sources */,
 				EEB87456209D15B40055981A /* AppDelegate.swift in Sources */,
+				EEB874B5209DDE630055981A /* CityDetailViewController.swift in Sources */,
 				EEB874AD209DDC7E0055981A /* CityListViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -322,14 +310,6 @@
 				EEB8745F209D15B60055981A /* Base */,
 			);
 			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-		EEB874B0209DDCAA0055981A /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				EEB874B1209DDCAA0055981A /* Base */,
-			);
-			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
