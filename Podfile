@@ -7,4 +7,5 @@ inhibit_all_warnings!
 target 'itcrowdforecast' do
   pod 'Fabric'
   pod 'Crashlytics'
+  pod 'SwiftLint'
 end

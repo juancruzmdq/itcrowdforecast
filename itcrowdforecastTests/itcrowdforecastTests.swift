@@ -8,7 +8,7 @@
 import XCTest
 @testable import itcrowdforecast
 
-class itcrowdforecastTests: XCTestCase {
+class ITCrowdforecastTests: XCTestCase {
     
     override func setUp() {
         super.setUp()

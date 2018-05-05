@@ -156,6 +156,7 @@
 				EEB8744F209D15B40055981A /* Frameworks */,
 				EEB87450209D15B40055981A /* Resources */,
 				EEB87475209D2A770055981A /* ShellScript */,
+				EEB874B6209DDF050055981A /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -271,6 +272,19 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Fabric/run\" 66945054803e3abe2777297373bb30e74df02916 db5017c7303478c320f0713177ff7b34c8b96f52c90e3e9b79a8ca0c5b9db1b8";
+		};
+		EEB874B6209DDF050055981A /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\nswiftlint\nelse\necho \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -435,6 +449,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 7GGD268HF2;
 				INFOPLIST_FILE = itcrowdforecast/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
