@@ -8,7 +8,7 @@
 import UIKit
 
 protocol CitySearchResultsViewControllerDelegate: class {
-    func searchResult(_ citySearchResultsViewController: CitySearchResultsViewController, didSelect prediction: Prediction)
+    func citySearchResultsViewController(_ citySearchResultsViewController: CitySearchResultsViewController, didSelect prediction: Prediction)
 }
 
 class CitySearchResultsViewController: UITableViewController {
@@ -40,14 +40,14 @@ extension CitySearchResultsViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.delegate?.searchResult(self, didSelect: self.viewModel.items[indexPath.row])
+        self.delegate?.citySearchResultsViewController(self, didSelect: self.viewModel.items[indexPath.row])
     }
     
 }
 
 extension CitySearchResultsViewController: CitySearchResultsViewModelDelegate {
     
-    func searchResultDidUpdate(_ citySearchResultsViewModel: CitySearchResultsViewModel) {
+    func citySearchResultsViewModelDidUpdate(_ citySearchResultsViewModel: CitySearchResultsViewModel) {
         self.tableView.reloadData()
     }
 

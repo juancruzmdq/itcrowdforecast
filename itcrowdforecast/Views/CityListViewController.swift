@@ -132,7 +132,7 @@ extension CityListViewController: CityListViewModelDelegate {
 
 extension CityListViewController: CitySearchResultsViewControllerDelegate {
     
-    func searchResult(_ citySearchResultsViewController: CitySearchResultsViewController, didSelect prediction: Prediction) {
+    func citySearchResultsViewController(_ citySearchResultsViewController: CitySearchResultsViewController, didSelect prediction: Prediction) {
         guard let cityName = prediction.description else { return }
         self.viewModel?.lookupForCityWith(name: cityName)
         self.searchController?.isActive = false

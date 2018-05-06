@@ -8,7 +8,7 @@
 import Foundation
 
 protocol CitySearchResultsViewModelDelegate: class {
-    func searchResultDidUpdate(_ citySearchResultsViewModel: CitySearchResultsViewModel)
+    func citySearchResultsViewModelDidUpdate(_ citySearchResultsViewModel: CitySearchResultsViewModel)
 }
 
 class CitySearchResultsViewModel {
@@ -25,7 +25,7 @@ class CitySearchResultsViewModel {
     
     var items = [Prediction]() {
         didSet {
-            self.delegate?.searchResultDidUpdate(self)
+            self.delegate?.citySearchResultsViewModelDidUpdate(self)
         }
     }
  
