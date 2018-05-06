@@ -8,7 +8,13 @@
 import UIKit
 import CoreData
 
+/// Class to manage a core data stack
 class CoreDataStore {
+    let persistenContainerName: String
+    
+    init(persistenContainerName: String) {
+        self.persistenContainerName = persistenContainerName
+    }
     
     var persistentStoreCoordinator: NSPersistentStoreCoordinator? {
         return self.persistentContainer.persistentStoreCoordinator
@@ -23,7 +29,7 @@ class CoreDataStore {
     }
     
     lazy var persistentContainer: NSPersistentContainer = {
-        let container = NSPersistentContainer(name: "itcrowdforecast")
+        let container = NSPersistentContainer(name: self.persistenContainerName)
         container.loadPersistentStores(completionHandler: { (_, error) in
             if let error = error as NSError? {
                 fatalError("Unresolved error \(error), \(error.userInfo)")

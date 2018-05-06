@@ -10,22 +10,22 @@ import UIKit
 class MainPresenter {
     
     let window: UIWindow
-    let coreDataStore: CoreDataStore
+    let itCrowdForecast: ITCrowdForecast
     
-    init(coreDataStore: CoreDataStore) {
-        self.coreDataStore = coreDataStore
+    init(itCrowdForecast: ITCrowdForecast) {
+        self.itCrowdForecast = itCrowdForecast
         self.window = UIWindow(frame: UIScreen.main.bounds)
     }
     
     func presentMainUI() {
         
         if let cityListViewController = Storyboard.cityList.initialViewController() as? CityListViewController,
-            let openWeatherProvider = OpenWeatherProvider() {
+            let openWeatherProvider = self.itCrowdForecast.openWeatherProvider {
             
-            let localCitiesService = LocalCitiesService(store: self.coreDataStore)
+            let localCitiesService = LocalCitiesService(store: self.itCrowdForecast.coreDataStore)
             
             cityListViewController.viewModel = CityListViewModel(localCitiesService: localCitiesService, openWeatherProvider: openWeatherProvider)
-            cityListViewController.presenter = CityListPresenter()
+            cityListViewController.presenter = CityListPresenter(itCrowdForecast: self.itCrowdForecast)
             
             let navigationController = UINavigationController(rootViewController: cityListViewController)
 

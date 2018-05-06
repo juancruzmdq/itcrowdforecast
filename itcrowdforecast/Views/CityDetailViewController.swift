@@ -27,7 +27,7 @@ class CityDetailViewController: UIViewController {
   
 }
 
-private extension CityDetailViewController{
+private extension CityDetailViewController {
     
     func displayModelInfo() {
         guard let viewModel = self.viewModel else { return }

@@ -47,8 +47,8 @@ private extension CityListViewController {
     
     func buildSearchController() {
         
-        let citySearchResultsViewController = CitySearchResultsViewController()
-        citySearchResultsViewController.delegate = self
+        let citySearchResultsViewController = self.presenter?.buildCitySearchResultsViewController()
+        citySearchResultsViewController?.delegate = self
         
         self.searchController = UISearchController(searchResultsController: citySearchResultsViewController)
         self.searchController?.searchResultsUpdater = citySearchResultsViewController

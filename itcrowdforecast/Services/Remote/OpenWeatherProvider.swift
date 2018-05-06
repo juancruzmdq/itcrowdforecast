@@ -9,21 +9,23 @@ import Foundation
 
 class OpenWeatherProvider {
     
-    private static let openWeatherKey = "e97ec39746568cc587b9fd0b7d34f7a1"
+    private let openWeatherKey: String
     private static let openWeatherBaseURL = "http://api.openweathermap.org/data/2.5"
 
     private let remoteProviderService: RemoteProviderService
     
-    init?() {
+    init?(openWeatherKey: String) {
         guard let url = URL(string: OpenWeatherProvider.openWeatherBaseURL) else { return nil }
 
+        self.openWeatherKey = openWeatherKey
+        
         let session = URLSession(configuration: .default)
         self.remoteProviderService = RemoteProviderService(baseUrl: url, session: session)
         self.remoteProviderService.delegate = self
     }
 
     func weatherBy(city: String, completion: @escaping (Result<City>) -> Void) {
-        let endPoint = OpenWeatherEndPoint.byCityName(city: city, appId: OpenWeatherProvider.openWeatherKey)
+        let endPoint = OpenWeatherEndPoint.byCityName(city: city, appId: self.openWeatherKey)
         self.remoteProviderService.call(endpoint: endPoint, completion: completion)
     }
 }
@@ -31,9 +33,9 @@ class OpenWeatherProvider {
 extension OpenWeatherProvider: RemoteProviderServiceDelegate {
     
     func remoteProviderServiceValidate(response: [String: Any]) -> RemoteProviderServiceError? {
-        if let cod = response["cod"] as? String,
+        if let cod = response["cod"] as? Double,
             let message = response["message"] as? String {
-            return RemoteProviderServiceError.serviceFailed(code: cod, message: message)
+            return RemoteProviderServiceError.serviceFailed(code: String(format: "%.0f", cod), message: message)
         }
         return nil
     }

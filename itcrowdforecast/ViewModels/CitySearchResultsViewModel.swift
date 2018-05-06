@@ -13,7 +13,7 @@ protocol CitySearchResultsViewModelDelegate: class {
 
 class CitySearchResultsViewModel {
     
-    private let googleMapsProvider = GoogleMapsProvider()
+    private var googleMapsProvider: GoogleMapsProvider
     
     weak var delegate: CitySearchResultsViewModelDelegate?
     
@@ -29,11 +29,15 @@ class CitySearchResultsViewModel {
         }
     }
  
+    init(googleMapsProvider: GoogleMapsProvider) {
+        self.googleMapsProvider = googleMapsProvider
+    }
+    
     func inputUpdated() {
         
         guard !self.input.isEmpty else { return }
         
-        googleMapsProvider?.autocomplete(input: self.input) { [weak self] predictions in
+        googleMapsProvider.autocomplete(input: self.input) { [weak self] predictions in
             
             guard let strongSelf = self else { return }
             

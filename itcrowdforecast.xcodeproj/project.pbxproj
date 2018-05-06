@@ -39,6 +39,7 @@
 		EEB8746B209D15B60055981A /* itcrowdforecastTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB8746A209D15B60055981A /* itcrowdforecastTests.swift */; };
 		EEB874AD209DDC7E0055981A /* CityListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB874AC209DDC7E0055981A /* CityListViewController.swift */; };
 		EEB874B5209DDE630055981A /* CityDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB874B4209DDE630055981A /* CityDetailViewController.swift */; };
+		EEDDDB85209F8E9700F82655 /* ITCrowdForecast.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEDDDB84209F8E9700F82655 /* ITCrowdForecast.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -90,6 +91,7 @@
 		EEB8746C209D15B60055981A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EEB874AC209DDC7E0055981A /* CityListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityListViewController.swift; sourceTree = "<group>"; };
 		EEB874B4209DDE630055981A /* CityDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityDetailViewController.swift; sourceTree = "<group>"; };
+		EEDDDB84209F8E9700F82655 /* ITCrowdForecast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ITCrowdForecast.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -225,6 +227,7 @@
 				EEB874A8209DDBA20055981A /* Views */,
 				EE9F87F0209E36D50029AB7A /* Presenters */,
 				EEB87455209D15B40055981A /* AppDelegate.swift */,
+				EEDDDB84209F8E9700F82655 /* ITCrowdForecast.swift */,
 				EEB8745C209D15B60055981A /* Assets.xcassets */,
 				EEB8745E209D15B60055981A /* LaunchScreen.storyboard */,
 				EEB87461209D15B60055981A /* Info.plist */,
@@ -450,6 +453,7 @@
 				EE9F87C8209DE47B0029AB7A /* EndPoint.swift in Sources */,
 				EE9F87FE209E49480029AB7A /* Predictions.swift in Sources */,
 				EE9F87D6209DF6F20029AB7A /* City.swift in Sources */,
+				EEDDDB85209F8E9700F82655 /* ITCrowdForecast.swift in Sources */,
 				EE9F87F8209E45FF0029AB7A /* GoogleMapsEndPoint.swift in Sources */,
 				EE9F87EC209E2CD00029AB7A /* CoreDataStore.swift in Sources */,
 				EEB874AD209DDC7E0055981A /* CityListViewController.swift in Sources */,
