@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import CoreData
 
 class CityListViewController: UITableViewController {
     
@@ -108,8 +109,32 @@ extension CityListViewController {
 
 extension CityListViewController: CityListViewModelDelegate {
     
+    func cityListViewModelWillChange(_ cityListViewModel: CityListViewModel) {
+        tableView.beginUpdates()
+    }
+    
+    func cityListViewModel(_ cityListViewModel: CityListViewModel, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+        
+        switch type {
+        case .insert:
+            guard let newIndexPath = newIndexPath else { return }
+            self.tableView.insertRows(at: [newIndexPath], with: .fade)
+        case .delete:
+            guard let indexPath = indexPath else { return }
+            self.tableView.deleteRows(at: [indexPath], with: .fade)
+        case .update:
+            guard let indexPath = indexPath,
+                  let cell = self.tableView.cellForRow(at: indexPath) as? CityTableViewCell,
+                  let city = anObject as? LocalCity else { return }
+            cell.viewModel = CityCellViewModel(for: city)
+        default:
+            break
+        }
+    
+    }
+        
     func cityListViewModelDidChange(_ cityListViewModel: CityListViewModel) {
-        self.tableView.reloadData()
+        tableView.endUpdates()
     }
     
     func cityListViewModel(_ cityListViewModel: CityListViewModel, failLookupFor city: String) {

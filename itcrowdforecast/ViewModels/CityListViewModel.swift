@@ -9,6 +9,8 @@ import Foundation
 import CoreData
 
 protocol CityListViewModelDelegate: class {
+    func cityListViewModelWillChange(_ cityListViewModel: CityListViewModel)
+    func cityListViewModel(_ cityListViewModel: CityListViewModel, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?)
     func cityListViewModelDidChange(_ cityListViewModel: CityListViewModel)
     func cityListViewModel(_ cityListViewModel: CityListViewModel, failLookupFor city: String)
     func cityListViewModel(_ cityListViewModel: CityListViewModel, loading: Bool)
@@ -73,6 +75,19 @@ class CityListViewModel: NSObject {
 }
 
 extension CityListViewModel: NSFetchedResultsControllerDelegate {
+
+    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        self.delegate?.cityListViewModelWillChange(self)
+    }
+    
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+        
+        self.delegate?.cityListViewModel(self,
+                                         didChange: anObject,
+                                         at: indexPath,
+                                         for: type,
+                                         newIndexPath: newIndexPath)
+    }
 
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         self.delegate?.cityListViewModelDidChange(self)
