@@ -7,9 +7,7 @@
 
 import UIKit
 
-class CityListViewController: UIViewController {
-    
-    @IBOutlet var tableView: UITableView!
+class CityListViewController: UITableViewController {
     
     var searchController: UISearchController?
     
@@ -31,15 +29,11 @@ class CityListViewController: UIViewController {
         self.viewModel?.delegate = self
     }
     
-}
-
-extension CityListViewController: UITableViewDataSource {
-
-    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    public override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel?.cities?.count ?? 0
     }
 
-    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    public override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CityListCellReuseIdentifier", for: indexPath)
         
         if let city = viewModel?.cities?[indexPath.row] {
@@ -49,12 +43,8 @@ extension CityListViewController: UITableViewDataSource {
         
         return cell
     }
-
-}
-
-extension CityListViewController: UITableViewDelegate {
     
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             if let city = viewModel?.cities?[indexPath.row] {
                 tableView.beginUpdates()
