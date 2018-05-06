@@ -16,5 +16,5 @@ enum HTTPMethod: String {
 protocol EndPointProtocol {
     var path: String { get }
     var parameters: [String: Any] { get }
-    var method: HTTPMethod { get }
+    var httpMethod: HTTPMethod { get }
 }

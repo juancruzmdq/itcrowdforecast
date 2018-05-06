@@ -25,7 +25,7 @@ enum GoogleMapsEndPoint: EndPointProtocol {
         }
     }
     
-    var method: HTTPMethod {
+    var httpMethod: HTTPMethod {
         switch self {
         case .autocomplete:
             return HTTPMethod.GET

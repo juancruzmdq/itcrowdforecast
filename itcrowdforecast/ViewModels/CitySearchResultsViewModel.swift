@@ -33,7 +33,7 @@ class CitySearchResultsViewModel {
         
         guard !self.input.isEmpty else { return }
         
-        googleMapsProvider.autocomplete(input: self.input) { [weak self] predictions in
+        googleMapsProvider?.autocomplete(input: self.input) { [weak self] predictions in
             
             guard let strongSelf = self else { return }
             

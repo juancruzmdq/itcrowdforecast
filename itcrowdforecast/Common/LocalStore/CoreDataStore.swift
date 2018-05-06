@@ -30,14 +30,16 @@ class CoreDataStore {
             }
         })
         
-        // TODO: added for debug
-        if let storeDirectoryURL = FileManager.default.urls(for: .applicationSupportDirectory,
-                                                               in: .userDomainMask).last {
-            let storeURL = storeDirectoryURL.appendingPathComponent("itcrowdforecast.sqlite")
-        }
-        
         return container
     }()
+    
+    func managedObjectContextChild() -> NSManagedObjectContext {
+        
+        let childContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
+        childContext.parent = self.persistentContainer.viewContext
+        
+        return childContext
+    }
     
     func saveContext () {
         let context = persistentContainer.viewContext

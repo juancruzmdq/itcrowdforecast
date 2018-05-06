@@ -15,8 +15,8 @@ class GoogleMapsProvider {
     
     private let remoteProviderService: RemoteProviderService
     
-    init() {
-        let url = URL(string: GoogleMapsProvider.googleBaseURL)
+    init?() {
+        guard let url = URL(string: GoogleMapsProvider.googleBaseURL) else { return nil }
         let session = URLSession(configuration: .default)
         self.remoteProviderService = RemoteProviderService(baseUrl: url, session: session)
     }

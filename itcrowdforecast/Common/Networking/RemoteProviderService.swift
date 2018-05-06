@@ -22,63 +22,61 @@ enum RemoteProviderServiceError: Error {
 
 class RemoteProviderService {
     let session: URLSession
-    let baseURL: URL?
+    let baseURL: URL
 
-    init(baseUrl: URL?, session: URLSession) {
+    init(baseUrl: URL, session: URLSession) {
         self.session = session
         self.baseURL = baseUrl
     }
-    
-    func call<T: Parseable>(endpoint: EndPointProtocol, completion: @escaping (Result<T>) -> Void) {
 
-        guard let url = self.buildURL(for: endpoint) else {
+    func call<T: Parseable>(endpoint: EndPointProtocol, completion: @escaping (Result<T>) -> Void) {
+        self.callWithCompletionWrapper(endpoint: endpoint) { (result) in
             DispatchQueue.main.async {
-                completion(.failure(RemoteProviderServiceError.invalidURLError()))
+                completion(result)
             }
+        }
+    }
+    
+    func callWithCompletionWrapper<T: Parseable>(endpoint: EndPointProtocol, completion: @escaping (Result<T>) -> Void) {
+        
+        guard let url = self.buildURL(for: endpoint) else {
+            completion(.failure(RemoteProviderServiceError.invalidURLError()))
             return
         }
         
         var request = URLRequest(url: url)
-        request.httpMethod = endpoint.method.rawValue
-
+        request.httpMethod = endpoint.httpMethod.rawValue
+        
         var dataTask: URLSessionDataTask?
-        dataTask = self.session.dataTask(with: url) { data, _, error in
+        dataTask = self.session.dataTask(with: url) {data, _, error in
+            
             if let error = error {
-                DispatchQueue.main.async {
-                    completion(.failure(RemoteProviderServiceError.dataTaskError(error.localizedDescription)))
-                }
+                completion(.failure(RemoteProviderServiceError.dataTaskError(error.localizedDescription)))
             } else if let data = data {
                 guard let dictionary = (try? JSONSerialization.jsonObject(with: data, options: [])) as? [String: Any] else {
-                    DispatchQueue.main.async {
-                        completion(.failure(RemoteProviderServiceError.conversionToJsonFailed()))
-                    }
+                    completion(.failure(RemoteProviderServiceError.conversionToJsonFailed()))
                     return
                 }
                 
                 guard let object = T.ParserType.parse(dictionary) as? T else {
-                    DispatchQueue.main.async {
-                        completion(.failure(RemoteProviderServiceError.objectParseFailed()))
-                    }
+                    completion(.failure(RemoteProviderServiceError.objectParseFailed()))
                     return
                 }
-                DispatchQueue.main.async {
-                    completion(.success(object))
-                }
+                
+                completion(.success(object))
+                
             } else {
-                DispatchQueue.main.async {
-                    completion(.failure(RemoteProviderServiceError.emptyDataError()))
-                }
+                completion(.failure(RemoteProviderServiceError.emptyDataError()))
             }
         }
         dataTask?.resume()
     }
     
     private func buildURL(for endpoint: EndPointProtocol) -> URL? {
-        guard let url = self.baseURL else { return nil }
         
-        switch endpoint.method {
+        switch endpoint.httpMethod {
         case .GET:
-            if var urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: false) {
+            if var urlComponents = URLComponents(url: self.baseURL, resolvingAgainstBaseURL: false) {
                 urlComponents.queryItems = endpoint.parameters.compactMap {arg in
                     let (key, value) = arg
                     return URLQueryItem(name: key, value: value as? String)
@@ -87,7 +85,7 @@ class RemoteProviderService {
                 return urlComponents.url
             }
         default:
-            return url.appendingPathComponent(endpoint.path)
+            return self.baseURL.appendingPathComponent(endpoint.path)
         }
         
         return nil

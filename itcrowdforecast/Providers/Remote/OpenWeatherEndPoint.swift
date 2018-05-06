@@ -25,7 +25,7 @@ enum OpenWeatherEndPoint: EndPointProtocol {
         }
     }
     
-    var method: HTTPMethod {
+    var httpMethod: HTTPMethod {
         switch self {
         case .byCityName:
             return HTTPMethod.GET
