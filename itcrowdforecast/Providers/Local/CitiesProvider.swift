@@ -48,7 +48,13 @@ class CitiesProvider {
         localCity?.name = city.name
         localCity?.latitude = city.latitude ?? 0
         localCity?.longitude = city.longitude ?? 0
-        
+
+        localCity?.temperature = city.temperature ?? 0
+        localCity?.pressure = city.pressure ?? 0
+        localCity?.humidity = city.humidity ?? 0
+        localCity?.minTemperature = city.minTemperature ?? 0
+        localCity?.maxTemperature = city.maxTemperature ?? 0
+
         context.perform {
             do {
                 try context.save()

@@ -9,6 +9,7 @@ import UIKit
 
 enum Storyboard: String {
     case cityList = "CityList"
+    case cityDetail = "CityDetail"
 }
 
 extension Storyboard {

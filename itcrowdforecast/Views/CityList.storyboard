@@ -5,6 +5,7 @@
     </device>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -12,18 +13,60 @@
         <scene sceneID="Drb-zA-uBo">
             <objects>
                 <tableViewController id="mhd-8Q-ue7" customClass="CityListViewController" customModule="itcrowdforecast" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="YE8-uP-ce5">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="60" estimatedRowHeight="60" sectionHeaderHeight="28" sectionFooterHeight="28" id="YE8-uP-ce5">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="CityListCellReuseIdentifier" rowHeight="80" id="TpA-IC-Gxi">
-                                <rect key="frame" x="0.0" y="28" width="375" height="80"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="CityListCellReuseIdentifier" rowHeight="60" id="TpA-IC-Gxi" customClass="CityTableViewCell" customModule="itcrowdforecast" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="375" height="60"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="TpA-IC-Gxi" id="pxB-F5-bEH">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="79.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="59.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="cq3-ns-dej">
+                                            <rect key="frame" x="279" y="11" width="80" height="38"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oGg-Za-13j">
+                                                    <rect key="frame" x="0.0" y="0.0" width="42" height="19"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E06-ty-60K">
+                                                    <rect key="frame" x="0.0" y="19" width="42" height="19"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="80" id="e2B-tP-TCZ"/>
+                                            </constraints>
+                                        </stackView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3HY-w5-l2o">
+                                            <rect key="frame" x="16" y="11" width="255" height="38"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="bottomMargin" secondItem="cq3-ns-dej" secondAttribute="bottom" id="AxU-QJ-T07"/>
+                                        <constraint firstItem="3HY-w5-l2o" firstAttribute="bottom" secondItem="pxB-F5-bEH" secondAttribute="bottomMargin" id="XNk-Yv-yDm"/>
+                                        <constraint firstItem="cq3-ns-dej" firstAttribute="leading" secondItem="3HY-w5-l2o" secondAttribute="trailing" constant="8" id="Zah-D6-lG2"/>
+                                        <constraint firstItem="cq3-ns-dej" firstAttribute="top" secondItem="pxB-F5-bEH" secondAttribute="topMargin" id="e7p-79-b3W"/>
+                                        <constraint firstItem="3HY-w5-l2o" firstAttribute="leading" secondItem="pxB-F5-bEH" secondAttribute="leadingMargin" id="o2e-iD-WjL"/>
+                                        <constraint firstItem="cq3-ns-dej" firstAttribute="trailing" secondItem="pxB-F5-bEH" secondAttribute="trailingMargin" id="o8j-tN-v8I"/>
+                                        <constraint firstItem="3HY-w5-l2o" firstAttribute="top" secondItem="pxB-F5-bEH" secondAttribute="topMargin" id="xCA-pT-eGm"/>
+                                    </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="humidityLabel" destination="E06-ty-60K" id="dlP-1d-E1v"/>
+                                    <outlet property="nameLabel" destination="3HY-w5-l2o" id="2cW-a8-tBh"/>
+                                    <outlet property="tempLabel" destination="oGg-Za-13j" id="H54-xB-RjX"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -34,7 +77,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hS6-k0-Ocn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="154" y="-43"/>
+            <point key="canvasLocation" x="152.80000000000001" y="-43.628185907046479"/>
         </scene>
     </scenes>
 </document>

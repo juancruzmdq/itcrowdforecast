@@ -19,6 +19,10 @@ class CityListViewModel: NSObject {
     var fetchResultsController: NSFetchedResultsController<LocalCity>?
     weak var delegate: CityListViewModelDelegate?
     
+    var cities: [LocalCity]? {
+        return self.fetchResultsController?.fetchedObjects
+    }
+    
     init(citiesProvider: CitiesProvider, openWeatherProvider: OpenWeatherProvider) {
         
         self.citiesProvider = citiesProvider
@@ -30,10 +34,6 @@ class CityListViewModel: NSObject {
         fetchResultsController?.delegate = self
         try? fetchResultsController?.performFetch()
 
-    }
-    
-    var cities: [LocalCity]? {
-        return self.fetchResultsController?.fetchedObjects
     }
     
     func lookupForCityWith(name: String) {

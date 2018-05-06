@@ -12,6 +12,8 @@ class CityListViewController: UITableViewController {
     var searchController: UISearchController?
     
     var viewModel: CityListViewModel?
+    
+    var presenter: CityListPresenter?
 
     override func viewDidLoad() {
         self.title = "My cities"
@@ -27,6 +29,17 @@ class CityListViewController: UITableViewController {
         navigationItem.searchController = self.searchController
         
         self.viewModel?.delegate = self
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationItem.hidesSearchBarWhenScrolling = false
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        navigationItem.hidesSearchBarWhenScrolling = true
     }
     
     public override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -34,14 +47,24 @@ class CityListViewController: UITableViewController {
     }
 
     public override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "CityListCellReuseIdentifier", for: indexPath)
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "CityListCellReuseIdentifier", for: indexPath) as? CityTableViewCell else {
+            return UITableViewCell()
+        }
         
         if let city = viewModel?.cities?[indexPath.row] {
-            cell.textLabel?.text = city.name
-            cell.detailTextLabel?.text = city.name
+            let cityCellViewModel = CityCellViewModel()
+            cityCellViewModel.city = city
+            cell.viewModel = cityCellViewModel
         }
         
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if let city = viewModel?.cities?[indexPath.row],
+           let navigationController = self.navigationController {
+            presenter?.cityDetail(for: city, in: navigationController)
+        }
     }
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {

@@ -32,7 +32,9 @@ class RemoteProviderService {
     func call<T: Parseable>(endpoint: EndPointProtocol, completion: @escaping (Result<T>) -> Void) {
 
         guard let url = self.buildURL(for: endpoint) else {
-            completion(.failure(RemoteProviderServiceError.invalidURLError()))
+            DispatchQueue.main.async {
+                completion(.failure(RemoteProviderServiceError.invalidURLError()))
+            }
             return
         }
         
