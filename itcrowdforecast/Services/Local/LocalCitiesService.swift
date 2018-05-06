@@ -8,14 +8,21 @@
 import Foundation
 import CoreData
 
+/// Class with a set of services to manage the LocalCity instances
 class LocalCitiesService {
     
-    let store: CoreDataStore
+    private let store: CoreDataStore
     
+    /// Create an instance of LocalCitiesService that will work with the speficied CoreDataStore
+    ///
+    /// - Parameter store: CoreDataStore used by this service
     init(store: CoreDataStore) {
         self.store = store
     }
     
+    /// Create a NSFetchedResultsController to retrieve the LocalCity instances
+    ///
+    /// - Returns: NSFetchedResultsController<LocalCity> instance
     func buildCitiesFetchController() -> NSFetchedResultsController<LocalCity>? {
         
         guard let context = self.store.managedObjectContext else { return nil }
@@ -33,6 +40,9 @@ class LocalCitiesService {
         return fetchResultsController
     }
     
+    /// Look locally an instance of the specified city to update it, if doesn't exist create the instance
+    ///
+    /// - Parameter city: city to create/update
     func updateOrCreateLocalCity(with city: City) {
         
         guard let context = self.store.managedObjectContext else {
@@ -41,7 +51,7 @@ class LocalCitiesService {
         var localCity: LocalCity?
             
         if let uid = city.uid {
-            localCity = ManagedObjectHelper<LocalCity>.first(in: context, with: "\(uid)")
+            localCity = ManagedObjectHelper<LocalCity>.object(in: context, with: "\(uid)")
         }
         
         if localCity == nil {
@@ -69,6 +79,9 @@ class LocalCitiesService {
 
     }
 
+    /// Delete an instance of the city
+    ///
+    /// - Parameter city: city to delete
     func delete(_ city: LocalCity) {
         guard let context = self.store.managedObjectContext else {
             return

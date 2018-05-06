@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// Service to interact with the GoogleMap's API
 class GoogleMapsProvider {
     
     private static let googleBaseURL = "https://maps.googleapis.com/maps/api/place"

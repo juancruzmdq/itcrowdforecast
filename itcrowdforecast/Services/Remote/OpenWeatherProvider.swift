@@ -7,13 +7,18 @@
 
 import Foundation
 
+/// Service to interact with the OpenWeather's API
 class OpenWeatherProvider {
     
-    private let openWeatherKey: String
     private static let openWeatherBaseURL = "http://api.openweathermap.org/data/2.5"
 
+    private let openWeatherKey: String
     private let remoteProviderService: RemoteProviderService
     
+    
+    /// Create a new instance of the OpenWeather API service with the specified account key
+    ///
+    /// - Parameter openWeatherKey: account key string
     init?(openWeatherKey: String) {
         guard let url = URL(string: OpenWeatherProvider.openWeatherBaseURL) else { return nil }
 
@@ -24,6 +29,11 @@ class OpenWeatherProvider {
         self.remoteProviderService.delegate = self
     }
 
+    /// Get the weather report for the specified city
+    ///
+    /// - Parameters:
+    ///   - city: city name
+    ///   - completion: callback with the service response
     func weatherBy(city: String, completion: @escaping (Result<City>) -> Void) {
         let endPoint = OpenWeatherEndPoint.byCityName(city: city, appId: self.openWeatherKey)
         self.remoteProviderService.call(endpoint: endPoint, completion: completion)

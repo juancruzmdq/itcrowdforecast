@@ -7,7 +7,6 @@
 
 import Foundation
 
-
 /// Result wrapper for Service's responses
 ///
 /// - success: The service finish successfuly and return an object from the App model
@@ -44,6 +43,11 @@ class RemoteProviderService {
     
     weak var delegate: RemoteProviderServiceDelegate?
 
+    /// Create an instance of RemoteProviderService
+    ///
+    /// - Parameters:
+    ///   - baseUrl: base URL service
+    ///   - session: Session instance that will be used by this service
     init(baseUrl: URL, session: URLSession) {
         self.session = session
         self.baseURL = baseUrl

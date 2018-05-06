@@ -7,7 +7,11 @@
 
 import Foundation
 
+/// Set of GoogleMaps endpoints
+///
+/// - autocomplete: given an input text, return a list of cities name predictions 
 enum GoogleMapsEndPoint: EndPointProtocol {
+    
     case autocomplete(input: String, key: String)
     
     var path: String {

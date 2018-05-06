@@ -26,7 +26,7 @@ class CityDetailViewModel {
         self.title = city.name ?? ""
         self.temperature = "\(String(format: "%.1f", city.temperature))°"
         self.humidity = "\(city.humidity)%"
-        self.pressure = String(format: "%.1f", city.temperature)
+        self.pressure = String(format: "%.1f", city.pressure)
         self.minTemperature = "\(String(format: "%.1f", city.minTemperature))°"
         self.maxTemperature = "\(String(format: "%.1f", city.maxTemperature))°"
         self.cityCoordinates = CLLocationCoordinate2D(latitude: city.latitude, longitude: city.longitude)

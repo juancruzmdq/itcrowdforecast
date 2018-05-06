@@ -7,7 +7,11 @@
 
 import Foundation
 
+/// Set of OpenWeather's endpoints
+///
+/// - byCityName: Look the forecast for a city with the given name
 enum OpenWeatherEndPoint: EndPointProtocol {
+    
     case byCityName(city: String, appId: String)
     
     var path: String {
