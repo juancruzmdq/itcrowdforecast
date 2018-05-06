@@ -13,10 +13,11 @@ import Foundation
 enum OpenWeatherEndPoint: EndPointProtocol {
     
     case byCityName(city: String, appId: String)
-    
+    case byCityId(uid: String, appId: String)
+
     var path: String {
         switch self {
-        case .byCityName:
+        case .byCityName, .byCityId:
             return "/weather"
         }
     }
@@ -26,12 +27,15 @@ enum OpenWeatherEndPoint: EndPointProtocol {
         case let .byCityName(city, appId):
             return ["q": city,
                     "appid": appId]
+        case let .byCityId(uid, appId):
+            return ["id": uid,
+                    "appid": appId]
         }
     }
     
     var httpMethod: HTTPMethod {
         switch self {
-        case .byCityName:
+        case .byCityName, .byCityId:
             return HTTPMethod.GET
         }
     }

@@ -16,8 +16,6 @@ class CityListViewController: UITableViewController {
     
     var searchController: UISearchController?
 
-    var activityIndicator: UIActivityIndicatorView?
-
     override func viewDidLoad() {
         
         self.title = "My cities"
@@ -26,9 +24,9 @@ class CityListViewController: UITableViewController {
         self.viewModel?.delegate = self
         
         self.buildSearchController()
-        
-        self.buildActivityIndicator()
-        
+
+        self.updateNavigationBar()
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -39,6 +37,8 @@ class CityListViewController: UITableViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         self.navigationItem.hidesSearchBarWhenScrolling = true
+        
+        self.viewModel?.refreshAllCities()
     }
     
 }
@@ -58,15 +58,24 @@ private extension CityListViewController {
 
     }
     
-    func buildActivityIndicator() {
+    func updateNavigationBar() {
 
-        let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
-        activityIndicator.hidesWhenStopped = true
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: activityIndicator)
-        self.activityIndicator = activityIndicator
+        if let loading = self.viewModel?.loading, loading {
+            let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+            activityIndicator.startAnimating()
+            self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: activityIndicator)
+        } else {
+            self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh,
+                                                                     target: self,
+                                                                     action: #selector(type(of: self).refreshButtonTapped(_:)))
+        }
 
     }
-    
+
+    @objc func refreshButtonTapped(_ sender: UIBarButtonItem) {
+        self.viewModel?.refreshAllCities()
+    }
+
 }
 
 extension CityListViewController {
@@ -146,11 +155,7 @@ extension CityListViewController: CityListViewModelDelegate {
     }
 
     func cityListViewModel(_ cityListViewModel: CityListViewModel, loading: Bool) {
-        if loading {
-            self.activityIndicator?.startAnimating()
-        } else {
-            self.activityIndicator?.stopAnimating()
-        }
+        self.updateNavigationBar()
     }
 
 }
