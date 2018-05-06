@@ -24,8 +24,12 @@ class CityDetailViewController: UIViewController {
         
         self.displayModelInfo()
     }
+  
+}
+
+private extension CityDetailViewController{
     
-    private func displayModelInfo() {
+    func displayModelInfo() {
         guard let viewModel = self.viewModel else { return }
         
         self.title = viewModel.title

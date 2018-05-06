@@ -9,28 +9,38 @@ import Foundation
 import CoreData
 
 protocol CityListViewModelDelegate: class {
-    func citiesDidChange(_ cityListViewModel: CityListViewModel)
+    func cityListViewModelDidChange(_ cityListViewModel: CityListViewModel)
+    func cityListViewModel(_ cityListViewModel: CityListViewModel, failLookupFor city: String)
+    func cityListViewModel(_ cityListViewModel: CityListViewModel, loading: Bool)
 }
 
 class CityListViewModel: NSObject {
     
-    let citiesProvider: CitiesProvider
-    let openWeatherProvider: OpenWeatherProvider
-    var fetchResultsController: NSFetchedResultsController<LocalCity>?
+    private let localCitiesService: LocalCitiesService
+    private let openWeatherProvider: OpenWeatherProvider
+
     weak var delegate: CityListViewModelDelegate?
+    
+    var fetchResultsController: NSFetchedResultsController<LocalCity>?
     
     var cities: [LocalCity]? {
         return self.fetchResultsController?.fetchedObjects
     }
-    
-    init(citiesProvider: CitiesProvider, openWeatherProvider: OpenWeatherProvider) {
+
+    var loading: Bool = false {
+        didSet {
+            self.delegate?.cityListViewModel(self, loading: loading)
+        }
+    }
+
+    init(localCitiesService: LocalCitiesService, openWeatherProvider: OpenWeatherProvider) {
         
-        self.citiesProvider = citiesProvider
+        self.localCitiesService = localCitiesService
         self.openWeatherProvider = openWeatherProvider
         
         super.init()
 
-        fetchResultsController = citiesProvider.buildCitiesFetchController()
+        fetchResultsController = localCitiesService.buildCitiesFetchController()
         fetchResultsController?.delegate = self
         try? fetchResultsController?.performFetch()
 
@@ -38,21 +48,25 @@ class CityListViewModel: NSObject {
     
     func lookupForCityWith(name: String) {
         
+        self.loading = true
+        
         self.openWeatherProvider.weatherBy(city: name) { [weak self] result in
-            
+        
             guard let strongSelf = self else { return }
+            
+            strongSelf.loading = false
             
             switch result {
             case let .success(city):
-                strongSelf.citiesProvider.updateOrCreate(city)
-            case let .failure(error):
-                print(error)
+                strongSelf.localCitiesService.updateOrCreateLocalCity(with: city)
+            case .failure:
+                strongSelf.delegate?.cityListViewModel(strongSelf, failLookupFor: name)
             }
         }
     }
     
     func delete(_ city: LocalCity) {
-        self.citiesProvider.delete(city)
+        self.localCitiesService.delete(city)
         try? self.fetchResultsController?.performFetch()
     }
     
@@ -61,7 +75,7 @@ class CityListViewModel: NSObject {
 extension CityListViewModel: NSFetchedResultsControllerDelegate {
 
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        self.delegate?.citiesDidChange(self)
+        self.delegate?.cityListViewModelDidChange(self)
     }
 
 }

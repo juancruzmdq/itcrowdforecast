@@ -33,14 +33,6 @@ class CoreDataStore {
         return container
     }()
     
-    func managedObjectContextChild() -> NSManagedObjectContext {
-        
-        let childContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
-        childContext.parent = self.persistentContainer.viewContext
-        
-        return childContext
-    }
-    
     func saveContext () {
         let context = persistentContainer.viewContext
         if context.hasChanges {

@@ -21,6 +21,9 @@ class CitySearchResultsViewController: UITableViewController {
         self.viewModel.delegate = self
         self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
     }
+}
+
+extension CitySearchResultsViewController {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.viewModel.items.count

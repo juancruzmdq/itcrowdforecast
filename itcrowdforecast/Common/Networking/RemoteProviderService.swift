@@ -9,7 +9,7 @@ import Foundation
 
 enum Result<T> {
     case success(_: T)
-    case failure(_: Error)
+    case failure(_: RemoteProviderServiceError)
 }
 
 enum RemoteProviderServiceError: Error {
@@ -18,11 +18,19 @@ enum RemoteProviderServiceError: Error {
     case emptyDataError()
     case conversionToJsonFailed()
     case objectParseFailed()
+    case serviceFailed(code: String, message: String)
+}
+
+protocol RemoteProviderServiceDelegate: class {
+    func remoteProviderServiceValidate(response: [String: Any]) -> RemoteProviderServiceError?
 }
 
 class RemoteProviderService {
+    
     let session: URLSession
     let baseURL: URL
+    
+    weak var delegate: RemoteProviderServiceDelegate?
 
     init(baseUrl: URL, session: URLSession) {
         self.session = session
@@ -48,13 +56,20 @@ class RemoteProviderService {
         request.httpMethod = endpoint.httpMethod.rawValue
         
         var dataTask: URLSessionDataTask?
-        dataTask = self.session.dataTask(with: url) {data, _, error in
+        dataTask = self.session.dataTask(with: url) { [weak self] data, _, error in
+            
+            guard let strongSelf = self else { return }
             
             if let error = error {
                 completion(.failure(RemoteProviderServiceError.dataTaskError(error.localizedDescription)))
             } else if let data = data {
                 guard let dictionary = (try? JSONSerialization.jsonObject(with: data, options: [])) as? [String: Any] else {
                     completion(.failure(RemoteProviderServiceError.conversionToJsonFailed()))
+                    return
+                }
+                
+                if let error = strongSelf.delegate?.remoteProviderServiceValidate(response: dictionary) {
+                    completion(.failure(error))
                     return
                 }
                 
@@ -72,7 +87,11 @@ class RemoteProviderService {
         dataTask?.resume()
     }
     
-    private func buildURL(for endpoint: EndPointProtocol) -> URL? {
+}
+
+private extension RemoteProviderService {
+    
+    func buildURL(for endpoint: EndPointProtocol) -> URL? {
         
         switch endpoint.httpMethod {
         case .GET:

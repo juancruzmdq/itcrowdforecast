@@ -6,7 +6,7 @@
 //
 
 import Foundation
-// TODO: revisar si es realmente necesario esto
+
 class Predictions {
     var items = [Prediction]()
 }

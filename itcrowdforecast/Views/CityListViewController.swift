@@ -9,15 +9,42 @@ import UIKit
 
 class CityListViewController: UITableViewController {
     
-    var searchController: UISearchController?
-    
     var viewModel: CityListViewModel?
     
     var presenter: CityListPresenter?
+    
+    var searchController: UISearchController?
+
+    var activityIndicator: UIActivityIndicatorView?
 
     override func viewDidLoad() {
+        
         self.title = "My cities"
         self.definesPresentationContext = true
+        
+        self.viewModel?.delegate = self
+        
+        self.buildSearchController()
+        
+        self.buildActivityIndicator()
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationItem.hidesSearchBarWhenScrolling = false
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.navigationItem.hidesSearchBarWhenScrolling = true
+    }
+    
+}
+
+private extension CityListViewController {
+    
+    func buildSearchController() {
         
         let citySearchResultsViewController = CitySearchResultsViewController()
         citySearchResultsViewController.delegate = self
@@ -26,24 +53,25 @@ class CityListViewController: UITableViewController {
         self.searchController?.searchResultsUpdater = citySearchResultsViewController
         self.searchController?.searchBar.placeholder = "Search new cities"
         
-        navigationItem.searchController = self.searchController
-        
-        self.viewModel?.delegate = self
-        
+        self.navigationItem.searchController = self.searchController
+
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        navigationItem.hidesSearchBarWhenScrolling = false
+    func buildActivityIndicator() {
+
+        let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+        activityIndicator.hidesWhenStopped = true
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: activityIndicator)
+        self.activityIndicator = activityIndicator
+
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        navigationItem.hidesSearchBarWhenScrolling = true
-    }
-    
+}
+
+extension CityListViewController {
+
     public override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel?.cities?.count ?? 0
+        return self.viewModel?.cities?.count ?? 0
     }
 
     public override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -52,24 +80,22 @@ class CityListViewController: UITableViewController {
         }
         
         if let city = viewModel?.cities?[indexPath.row] {
-            let cityCellViewModel = CityCellViewModel()
-            cityCellViewModel.city = city
-            cell.viewModel = cityCellViewModel
+            cell.viewModel = CityCellViewModel(for: city)
         }
         
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if let city = viewModel?.cities?[indexPath.row],
+        if let city = self.viewModel?.cities?[indexPath.row],
            let navigationController = self.navigationController {
-            presenter?.cityDetail(for: city, in: navigationController)
+            self.presenter?.cityDetail(for: city, in: navigationController)
         }
     }
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            if let city = viewModel?.cities?[indexPath.row] {
+            if let city = self.viewModel?.cities?[indexPath.row] {
                 tableView.beginUpdates()
                 self.viewModel?.delete(city)
                 tableView.deleteRows(at: [indexPath], with: .fade)
@@ -82,10 +108,26 @@ class CityListViewController: UITableViewController {
 
 extension CityListViewController: CityListViewModelDelegate {
     
-    func citiesDidChange(_ cityListViewModel: CityListViewModel) {
+    func cityListViewModelDidChange(_ cityListViewModel: CityListViewModel) {
         self.tableView.reloadData()
     }
     
+    func cityListViewModel(_ cityListViewModel: CityListViewModel, failLookupFor city: String) {
+        
+        let alert = UIAlertController(title: "ITCrow Forecast", message: "We are not able to provide the forecast for the city \"\(city)\"", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+        self.present(alert, animated: true)
+        
+    }
+
+    func cityListViewModel(_ cityListViewModel: CityListViewModel, loading: Bool) {
+        if loading {
+            self.activityIndicator?.startAnimating()
+        } else {
+            self.activityIndicator?.stopAnimating()
+        }
+    }
+
 }
 
 extension CityListViewController: CitySearchResultsViewControllerDelegate {

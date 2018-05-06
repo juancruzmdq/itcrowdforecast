@@ -17,7 +17,6 @@ class City {
     var humidity: Double?
     var minTemperature: Double?
     var maxTemperature: Double?
-
 }
 
 extension City: Parseable {
@@ -32,6 +31,7 @@ struct CityParser: Parser {
         
         city.uid = dictionaryRepresentation["id"] as? Double
         city.name = dictionaryRepresentation["name"] as? String
+        
         if let coord = dictionaryRepresentation["coord"] as? [String: Any] {
             city.latitude = coord["lat"] as? Double
             city.longitude = coord["lon"] as? Double
@@ -47,4 +47,5 @@ struct CityParser: Parser {
 
         return city
     }
+    
 }

@@ -11,7 +11,6 @@ import MapKit
 class CityDetailViewModel {
     
     var city: LocalCity
-    
     var title: String
     var temperature: String
     var humidity: String

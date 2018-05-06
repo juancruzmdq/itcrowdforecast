@@ -6,12 +6,11 @@
 //
 
 import Foundation
-//https://maps.googleapis.com/maps/api/place/autocomplete/json?input=mar&key=AIzaSyDDSAUS1ixWMdgECdpWqlMPeCNMlrA1_hM
 
 class GoogleMapsProvider {
     
     private static let googleKey = "AIzaSyBOPxZFIR8nBaLzXACGA9kRW2CbYxMsMTk"
-    private static let googleBaseURL = "https://maps.googleapis.com"
+    private static let googleBaseURL = "https://maps.googleapis.com/maps/api/place"
     
     private let remoteProviderService: RemoteProviderService
     

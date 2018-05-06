@@ -9,17 +9,16 @@ import Foundation
 
 class CityCellViewModel {
 
-    var cityName = ""
-    var cityTemperature = ""
-    var cityHumidity = ""
-
-    var city: LocalCity? {
-        didSet {
-            guard let city = city else { return }
-            self.cityName = city.name ?? ""
-            self.cityTemperature = "\(String(format: "%.1f", city.temperature))°"
-            self.cityHumidity = "\(city.humidity)%"
-        }
+    var city: LocalCity
+    var name = ""
+    var temperature = ""
+    var humidity = ""
+    
+    init(for city: LocalCity) {
+        self.city = city
+        self.name = city.name ?? ""
+        self.temperature = "\(String(format: "%.1f", city.temperature))°"
+        self.humidity = "\(city.humidity)%"
     }
 
 }

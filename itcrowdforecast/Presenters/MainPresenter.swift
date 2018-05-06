@@ -22,9 +22,9 @@ class MainPresenter {
         if let cityListViewController = Storyboard.cityList.initialViewController() as? CityListViewController,
             let openWeatherProvider = OpenWeatherProvider() {
             
-            let citiesProvider = CitiesProvider(store: self.coreDataStore)
+            let localCitiesService = LocalCitiesService(store: self.coreDataStore)
             
-            cityListViewController.viewModel = CityListViewModel(citiesProvider: citiesProvider, openWeatherProvider: openWeatherProvider)
+            cityListViewController.viewModel = CityListViewModel(localCitiesService: localCitiesService, openWeatherProvider: openWeatherProvider)
             cityListViewController.presenter = CityListPresenter()
             
             let navigationController = UINavigationController(rootViewController: cityListViewController)

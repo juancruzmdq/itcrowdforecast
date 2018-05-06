@@ -18,10 +18,15 @@ class CityTableViewCell: UITableViewCell {
             self.displayModelInfo()
         }
     }
+  
+}
+
+private extension CityTableViewCell {
     
-    private func displayModelInfo() {
-        self.nameLabel.text = viewModel?.cityName
-        self.tempLabel.text = viewModel?.cityTemperature
-        self.humidityLabel.text = viewModel?.cityHumidity
+    func displayModelInfo() {
+        self.nameLabel.text = viewModel?.name
+        self.tempLabel.text = viewModel?.temperature
+        self.humidityLabel.text = viewModel?.humidity
     }
+    
 }

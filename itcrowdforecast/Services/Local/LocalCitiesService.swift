@@ -1,5 +1,5 @@
 //
-//  CitiesProvider.swift
+//  LocalCitiesService.swift
 //  itcrowdforecast
 //
 //  Created by Juan Cruz Ghigliani on 5/5/18.
@@ -8,7 +8,7 @@
 import Foundation
 import CoreData
 
-class CitiesProvider {
+class LocalCitiesService {
     
     let store: CoreDataStore
     
@@ -33,12 +33,16 @@ class CitiesProvider {
         return fetchResultsController
     }
     
-    func updateOrCreate(_ city: City) {
+    func updateOrCreateLocalCity(with city: City) {
         
         guard let context = self.store.managedObjectContext else {
             return
         }
-        var localCity = ManagedObjectHelper<LocalCity>.first(in: context, with: "\(city.uid ?? 0)")
+        var localCity: LocalCity?
+            
+        if let uid = city.uid {
+            localCity = ManagedObjectHelper<LocalCity>.first(in: context, with: "\(uid)")
+        }
         
         if localCity == nil {
             localCity = ManagedObjectHelper<LocalCity>.inserted(in: context)

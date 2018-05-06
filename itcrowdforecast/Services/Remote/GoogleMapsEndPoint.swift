@@ -13,7 +13,7 @@ enum GoogleMapsEndPoint: EndPointProtocol {
     var path: String {
         switch self {
         case .autocomplete:
-            return "/maps/api/place/autocomplete/json"
+            return "/autocomplete/json"
         }
     }
     

@@ -13,7 +13,7 @@ protocol CitySearchResultsViewModelDelegate: class {
 
 class CitySearchResultsViewModel {
     
-    let googleMapsProvider = GoogleMapsProvider()
+    private let googleMapsProvider = GoogleMapsProvider()
     
     weak var delegate: CitySearchResultsViewModelDelegate?
     
@@ -39,11 +39,16 @@ class CitySearchResultsViewModel {
             
             switch predictions {
             case let .success(predictions):
+                // Create a custom prediction with the text typed by the use
                 let customPrediction = Prediction()
                 customPrediction.description = strongSelf.input
                 var newItems = [customPrediction]
+                
+                // Concat the predictions from the google servide
                 newItems.append(contentsOf: predictions.items)
+                
                 strongSelf.items = newItems
+                
             case let .failure(error):
                 print(error)
             }

@@ -19,10 +19,23 @@ class OpenWeatherProvider {
 
         let session = URLSession(configuration: .default)
         self.remoteProviderService = RemoteProviderService(baseUrl: url, session: session)
+        self.remoteProviderService.delegate = self
     }
 
     func weatherBy(city: String, completion: @escaping (Result<City>) -> Void) {
         let endPoint = OpenWeatherEndPoint.byCityName(city: city, appId: OpenWeatherProvider.openWeatherKey)
         self.remoteProviderService.call(endpoint: endPoint, completion: completion)
     }
+}
+
+extension OpenWeatherProvider: RemoteProviderServiceDelegate {
+    
+    func remoteProviderServiceValidate(response: [String: Any]) -> RemoteProviderServiceError? {
+        if let cod = response["cod"] as? String,
+            let message = response["message"] as? String {
+            return RemoteProviderServiceError.serviceFailed(code: cod, message: message)
+        }
+        return nil
+    }
+    
 }
