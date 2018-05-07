@@ -15,7 +15,7 @@ class CityListViewController: UITableViewController {
     var presenter: CityListPresenterProtocol?
     
     var searchController: UISearchController?
-
+    
     override func viewDidLoad() {
         
         self.title = "My cities"
@@ -24,8 +24,8 @@ class CityListViewController: UITableViewController {
         self.viewModel?.delegate = self
         
         self.buildSearchController()
-
-        self.updateNavigationBar()
+        
+        self.buildRefreshControl()
 
     }
     
@@ -56,21 +56,15 @@ private extension CityListViewController {
 
     }
     
-    func updateNavigationBar() {
+    func buildRefreshControl() {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(type(of: self).refreshControl(_:)), for: UIControlEvents.valueChanged)
+        self.tableView.addSubview(refreshControl)
 
-        if let loading = self.viewModel?.loading, loading {
-            let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
-            activityIndicator.startAnimating()
-            self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: activityIndicator)
-        } else {
-            self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh,
-                                                                     target: self,
-                                                                     action: #selector(type(of: self).refreshButtonTapped(_:)))
-        }
-
+        self.tableView.refreshControl = refreshControl
     }
 
-    @objc func refreshButtonTapped(_ sender: UIBarButtonItem) {
+    @objc func refreshControl(_ sender: UIRefreshControl) {
         self.viewModel?.refreshAllCities()
     }
 
@@ -154,7 +148,9 @@ extension CityListViewController: CityListViewModelDelegate {
     }
 
     func cityListViewModel(_ cityListViewModel: CityListViewModel, loading: Bool) {
-        self.updateNavigationBar()
+        if !loading {
+            self.tableView.refreshControl?.endRefreshing()
+        }
     }
 
 }
