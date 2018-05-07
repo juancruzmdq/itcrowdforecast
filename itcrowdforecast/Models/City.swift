@@ -8,8 +8,9 @@
 import Foundation
 
 class City {
-    var uid: Double?
-    var name: String?
+    
+    var uid: Double
+    var name: String
     var latitude: Double?
     var longitude: Double?
     var temperature: Double?
@@ -17,6 +18,12 @@ class City {
     var humidity: Double?
     var minTemperature: Double?
     var maxTemperature: Double?
+    
+    init(uid: Double, name: String) {
+        self.uid = uid
+        self.name = name
+    }
+    
 }
 
 extension City: Parseable {
@@ -26,11 +33,15 @@ extension City: Parseable {
 struct CityParser: Parser {
     
     static func parse(_ dictionaryRepresentation: [String: Any]) -> City? {
+
+        guard let uid = dictionaryRepresentation["id"] as? Double,
+            let name = dictionaryRepresentation["name"] as? String else {
+                return nil
+        }
+
         
-        let city = City()
+        let city = City(uid: uid, name: name)
         
-        city.uid = dictionaryRepresentation["id"] as? Double
-        city.name = dictionaryRepresentation["name"] as? String
         
         if let coord = dictionaryRepresentation["coord"] as? [String: Any] {
             city.latitude = coord["lat"] as? Double

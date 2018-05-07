@@ -66,17 +66,14 @@ extension LocalCitiesService: LocalCitiesServiceProtocol {
         }
         var localCity: LocalCity?
         
-        // Try to recover the city with id
-        if let uid = city.uid {
-            localCity = ManagedObjectHelper<LocalCity>.object(in: context, with: "\(uid)")
-        }
-        
+        localCity = ManagedObjectHelper<LocalCity>.object(in: context, with: "\(city.uid)")
+
         // If didn't found it then create it
         if localCity == nil {
             localCity = ManagedObjectHelper<LocalCity>.inserted(in: context)
         }
         
-        localCity?.uid = city.uid ?? 0
+        localCity?.uid = city.uid
         localCity?.name = city.name
         localCity?.latitude = city.latitude ?? 0
         localCity?.longitude = city.longitude ?? 0
