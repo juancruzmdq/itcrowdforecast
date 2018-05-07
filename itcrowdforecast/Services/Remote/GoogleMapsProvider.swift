@@ -15,7 +15,6 @@ class GoogleMapsProvider {
     private let googleKey: String
     private let remoteProviderService: RemoteProviderService
     
-    
     /// Create a new googleMap service with the given key
     ///
     /// - Parameter googleKey: google api key
@@ -28,7 +27,6 @@ class GoogleMapsProvider {
         self.remoteProviderService = RemoteProviderService(baseUrl: url, session: session)
     }
     
-    
     /// Return a list of predictions with posibles cities names for the input text
     ///
     /// - Parameters:
@@ -38,4 +36,5 @@ class GoogleMapsProvider {
         let endPoint = GoogleMapsEndPoint.autocomplete(input: input, key: self.googleKey)
         self.remoteProviderService.call(endpoint: endPoint, completion: completion)
     }
+    
 }

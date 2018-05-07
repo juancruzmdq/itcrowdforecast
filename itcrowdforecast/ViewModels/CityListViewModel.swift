@@ -52,6 +52,7 @@ class CityListViewModel: NSObject {
         
         self.loading = true
         
+        // Get city by name from remote service
         self.openWeatherProvider.weatherBy(city: name) { [weak self] result in
         
             guard let strongSelf = self else { return }
@@ -60,6 +61,7 @@ class CityListViewModel: NSObject {
             
             switch result {
             case let .success(city):
+                // store city in local store
                 strongSelf.localCitiesService.updateOrCreateLocalCity(with: city)
             case .failure:
                 strongSelf.delegate?.cityListViewModel(strongSelf, failLookupFor: name)

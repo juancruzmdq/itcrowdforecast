@@ -19,6 +19,7 @@ class CitySearchResultsViewModel {
     
     var input: String = "" {
         didSet {
+            // Every time that the user update the input text, we update the prediction list
             self.inputUpdated()
         }
     }
