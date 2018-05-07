@@ -13,7 +13,7 @@ protocol CitySearchResultsViewModelDelegate: class {
 
 class CitySearchResultsViewModel {
     
-    private var googleMapsProvider: GoogleMapsProvider
+    private var googleMapsProvider: GoogleMapsProviderProtocol
     
     weak var delegate: CitySearchResultsViewModelDelegate?
     
@@ -30,7 +30,7 @@ class CitySearchResultsViewModel {
         }
     }
  
-    init(googleMapsProvider: GoogleMapsProvider) {
+    init(googleMapsProvider: GoogleMapsProviderProtocol) {
         self.googleMapsProvider = googleMapsProvider
     }
     

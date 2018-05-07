@@ -35,6 +35,19 @@ protocol RemoteProviderServiceDelegate: class {
     func remoteProviderServiceValidate(response: [String: Any]) -> RemoteProviderServiceError?
 }
 
+protocol RemoteProviderServiceProtocol {
+    
+    /// Instance of the service delegate
+    var delegate: RemoteProviderServiceDelegate? { get set }
+    
+    /// Call an specific endpoint, when finish execute completion block in main thread
+    ///
+    /// - Parameters:
+    ///   - endpoint: Endpoint to call
+    ///   - completion: Block to be called when Endpoint's call finish
+    func call<T: Parseable>(endpoint: EndPointProtocol, completion: @escaping (Result<T>) -> Void)
+}
+
 /// Class that works as interface of a remot web service
 class RemoteProviderService {
     
@@ -53,11 +66,10 @@ class RemoteProviderService {
         self.baseURL = baseUrl
     }
 
-    /// Call an specific endpoint, when finish execute completion block in main thread
-    ///
-    /// - Parameters:
-    ///   - endpoint: Endpoint to call
-    ///   - completion: Block to be called when Endpoint's call finish
+}
+
+extension RemoteProviderService: RemoteProviderServiceProtocol {
+        
     func call<T: Parseable>(endpoint: EndPointProtocol, completion: @escaping (Result<T>) -> Void) {
         self.callWithCompletionWrapper(endpoint: endpoint) { (result) in
             DispatchQueue.main.async {

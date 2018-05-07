@@ -7,6 +7,21 @@
 
 import UIKit
 
+protocol CityListPresenterProtocol {
+
+    /// Push a new CityDetailViewController with the CityDetailViewModel
+    ///
+    /// - Parameters:
+    ///   - city: city to display
+    ///   - navigation: push in this navigation controller
+    func cityDetail(for city: LocalCity, in navigation: UINavigationController)
+
+    /// Create a new instance of CitySearchResultsViewController with CitySearchResultsViewModel
+    ///
+    /// - Returns: New CitySearchResultsViewController instances
+    func buildCitySearchResultsViewController() -> CitySearchResultsViewController
+}
+
 class CityListPresenter {
     
     let itCrowdForecast: ITCrowdForecast
@@ -15,29 +30,22 @@ class CityListPresenter {
         self.itCrowdForecast = itCrowdForecast
     }
     
-    /// Push a new CityDetailViewController with the CityDetailViewModel
-    ///
-    /// - Parameters:
-    ///   - city: city to display
-    ///   - navigation: push in this navigation controller
+}
+
+extension CityListPresenter: CityListPresenterProtocol {
+    
     func cityDetail(for city: LocalCity, in navigation: UINavigationController) {
-        
         if let cityDetailViewController = Storyboard.cityDetail.initialViewController() as? CityDetailViewController {
-        
             cityDetailViewController.viewModel = CityDetailViewModel(for: city)
             navigation.pushViewController(cityDetailViewController, animated: true)
         }
     }
     
-    /// Create a new instance of CitySearchResultsViewController with CitySearchResultsViewModel
-    ///
-    /// - Returns: New CitySearchResultsViewController instances
     func buildCitySearchResultsViewController() -> CitySearchResultsViewController {
         let citySearchResultsViewController = CitySearchResultsViewController()
 
-        if let googleMapsProvider = self.itCrowdForecast.googleMapsProvider {
-            citySearchResultsViewController.viewModel = CitySearchResultsViewModel(googleMapsProvider: googleMapsProvider)
-        }
+        citySearchResultsViewController.viewModel = CitySearchResultsViewModel(googleMapsProvider: self.itCrowdForecast.googleMapsProvider)
+
         return citySearchResultsViewController
     }
 

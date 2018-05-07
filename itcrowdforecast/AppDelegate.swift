@@ -14,7 +14,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         ITCrowdForecast()
     }()
     
-    lazy var mainPresenter = {
+    lazy var mainPresenter: MainPresenterProtocol = {
         MainPresenter(itCrowdForecast: self.itCrowdForecast)
     }()
 
@@ -23,6 +23,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.mainPresenter.presentMainUI()
         
         return true
+    }
+    
+    func applicationDidBecomeActive(_ application: UIApplication) {
+        self.itCrowdForecast.citiesServices.reloadAllCities {
+            print("Local repository updated")
+        }
     }
     
     func applicationWillTerminate(_ application: UIApplication) {

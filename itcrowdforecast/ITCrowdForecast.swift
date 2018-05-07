@@ -16,8 +16,9 @@ class ITCrowdForecast {
     private static let persistenContainerName = "itcrowdforecast"
 
     let coreDataStore: CoreDataStore
-    let openWeatherProvider: OpenWeatherProvider?
-    let googleMapsProvider: GoogleMapsProvider?
+    let openWeatherProvider: OpenWeatherProviderProtocol
+    let googleMapsProvider: GoogleMapsProviderProtocol
+    let citiesServices: CitiesServicesProtocol
     
     init() {
         
@@ -26,5 +27,7 @@ class ITCrowdForecast {
         self.coreDataStore = CoreDataStore(persistenContainerName: ITCrowdForecast.persistenContainerName)
         self.openWeatherProvider = OpenWeatherProvider(openWeatherKey: ITCrowdForecast.openWeatherKey)
         self.googleMapsProvider = GoogleMapsProvider(googleKey: ITCrowdForecast.googleKey)
+        self.citiesServices = CitiesServices(localCitiesService: LocalCitiesService(store: self.coreDataStore ), openWeatherProvider: openWeatherProvider)
+
     }
 }

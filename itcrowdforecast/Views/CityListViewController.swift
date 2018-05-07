@@ -12,7 +12,7 @@ class CityListViewController: UITableViewController {
     
     var viewModel: CityListViewModel?
     
-    var presenter: CityListPresenter?
+    var presenter: CityListPresenterProtocol?
     
     var searchController: UISearchController?
 
@@ -37,8 +37,6 @@ class CityListViewController: UITableViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         self.navigationItem.hidesSearchBarWhenScrolling = true
-        
-        self.viewModel?.refreshAllCities()
     }
     
 }

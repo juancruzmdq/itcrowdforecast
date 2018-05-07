@@ -18,8 +18,7 @@ protocol CityListViewModelDelegate: class {
 
 class CityListViewModel: NSObject {
     
-    private let localCitiesService: LocalCitiesService
-    private let openWeatherProvider: OpenWeatherProvider
+    private let citiesServices: CitiesServicesProtocol
 
     weak var delegate: CityListViewModelDelegate?
     
@@ -35,14 +34,13 @@ class CityListViewModel: NSObject {
         }
     }
 
-    init(localCitiesService: LocalCitiesService, openWeatherProvider: OpenWeatherProvider) {
+    init(citiesServices: CitiesServicesProtocol) {
         
-        self.localCitiesService = localCitiesService
-        self.openWeatherProvider = openWeatherProvider
+        self.citiesServices = citiesServices
         
         super.init()
 
-        fetchResultsController = localCitiesService.buildCitiesFetchController()
+        fetchResultsController = citiesServices.buildCitiesFetchController()
         fetchResultsController?.delegate = self
         try? fetchResultsController?.performFetch()
 
@@ -53,7 +51,7 @@ class CityListViewModel: NSObject {
         self.loading = true
         
         // Get city by name from remote service
-        self.openWeatherProvider.weatherBy(city: name) { [weak self] result in
+        self.citiesServices.weatherBy(city: name) { [weak self] result in
         
             guard let strongSelf = self else { return }
             
@@ -62,7 +60,7 @@ class CityListViewModel: NSObject {
             switch result {
             case let .success(city):
                 // store city in local store
-                strongSelf.localCitiesService.updateOrCreateLocalCity(with: city)
+                strongSelf.citiesServices.updateOrCreateLocalCity(with: city)
             case .failure:
                 strongSelf.delegate?.cityListViewModel(strongSelf, failLookupFor: name)
             }
@@ -70,50 +68,17 @@ class CityListViewModel: NSObject {
     }
     
     func delete(_ city: LocalCity) {
-        self.localCitiesService.delete(city)
+        self.citiesServices.delete(city)
         // Force the fetchResultsController update, since I don't want to wait for the fetchResultsController.didChange, due in the view the delete animation looks better if is executed after the user swipe the cell
         try? self.fetchResultsController?.performFetch()
     }
     
     func refreshAllCities() {
         
-        // Used to track the upload process of all assets, and notify when all task are complete
-        let dispatchGroup = DispatchGroup()
-
-        self.cities?.forEach { city in
-            self.loading = true
-            
-            guard let cityName = city.name else { return }
-            
-            // Indicate the begining of a new async task
-            dispatchGroup.enter()
-            
-            // I've tried to update the list using weatherBy(id), but the API return diferents cities with the same id
-            // Check this two API call
-            // http://api.openweathermap.org/data/2.5/weather?q=Tucuman,%20Tucum%C3%A1n,%20Argentina&appid=e97ec39746568cc587b9fd0b7d34f7a1
-            // http://api.openweathermap.org/data/2.5/weather?id=3934608&appid=e97ec39746568cc587b9fd0b7d34f7a1
-            // or this two:
-            // http://api.openweathermap.org/data/2.5/weather?q=Mar%20del%20Plata,%20Buenos%20Aires,%20Argentina&appid=e97ec39746568cc587b9fd0b7d34f7a1
-            // http://api.openweathermap.org/data/2.5/weather?q=Caleta%20Olivia,%20Santa%20Cruz%20Province,%20Argentina&appid=e97ec39746568cc587b9fd0b7d34f7a1
-            self.openWeatherProvider.weatherBy(city: cityName) { [weak self] result in
-                
-                guard let strongSelf = self else { return }
-                
-                switch result {
-                case let .success(city):
-                    strongSelf.localCitiesService.updateOrCreateLocalCity(with: city)
-                default:
-                    break
-                }
-                // Indicate the begining of a new async task
-                dispatchGroup.leave()
-            }
-
-        }
-
-        dispatchGroup.notify(queue: DispatchQueue.main) { [weak self] in
+        self.loading = true
+        self.citiesServices.reloadAllCities { [weak self] in
             guard let strongSelf = self else { return }
-            // Once that all async tasks finished, finish this global task
+
             strongSelf.loading = false
         }
 
