@@ -69,6 +69,7 @@ class CityListViewModel: NSObject {
     
     func delete(_ city: LocalCity) {
         self.localCitiesService.delete(city)
+        // Force the fetchResultsController update, since I don't want to wait for the fetchResultsController.didChange, due in the view the delete animation looks better if is executed after the user swipe the cell
         try? self.fetchResultsController?.performFetch()
     }
     

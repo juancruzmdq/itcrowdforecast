@@ -49,11 +49,13 @@ class LocalCitiesService {
             return
         }
         var localCity: LocalCity?
-            
+        
+        // Try to recover the city with id
         if let uid = city.uid {
             localCity = ManagedObjectHelper<LocalCity>.object(in: context, with: "\(uid)")
         }
         
+        // If didn't found it then create it
         if localCity == nil {
             localCity = ManagedObjectHelper<LocalCity>.inserted(in: context)
         }

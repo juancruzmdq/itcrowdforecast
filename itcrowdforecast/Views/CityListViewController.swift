@@ -106,6 +106,7 @@ extension CityListViewController {
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             if let city = self.viewModel?.cities?[indexPath.row] {
+                // Do the delete animation here instad of wait the NSFetchedResultsController.didChange, due the delete animation looks better if is executed after the user swipe the cell
                 tableView.beginUpdates()
                 self.viewModel?.delete(city)
                 tableView.deleteRows(at: [indexPath], with: .fade)
@@ -164,7 +165,11 @@ extension CityListViewController: CitySearchResultsViewControllerDelegate {
     
     func citySearchResultsViewController(_ citySearchResultsViewController: CitySearchResultsViewController, didSelect prediction: Prediction) {
         guard let cityName = prediction.description else { return }
+        
+        // start a new city search
         self.viewModel?.lookupForCityWith(name: cityName)
+        
+        // Hide searchController
         self.searchController?.isActive = false
     }
     

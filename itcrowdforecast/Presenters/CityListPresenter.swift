@@ -14,6 +14,12 @@ class CityListPresenter {
     init(itCrowdForecast: ITCrowdForecast) {
         self.itCrowdForecast = itCrowdForecast
     }
+    
+    /// Push a new CityDetailViewController with the CityDetailViewModel
+    ///
+    /// - Parameters:
+    ///   - city: city to display
+    ///   - navigation: push in this navigation controller
     func cityDetail(for city: LocalCity, in navigation: UINavigationController) {
         
         if let cityDetailViewController = Storyboard.cityDetail.initialViewController() as? CityDetailViewController {
@@ -23,6 +29,9 @@ class CityListPresenter {
         }
     }
     
+    /// Create a new instance of CitySearchResultsViewController with CitySearchResultsViewModel
+    ///
+    /// - Returns: New CitySearchResultsViewController instances
     func buildCitySearchResultsViewController() -> CitySearchResultsViewController {
         let citySearchResultsViewController = CitySearchResultsViewController()
 

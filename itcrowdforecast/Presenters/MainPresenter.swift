@@ -17,6 +17,7 @@ class MainPresenter {
         self.window = UIWindow(frame: UIScreen.main.bounds)
     }
     
+    /// Create a new CityListViewController with the CityListViewModel, and add as rootViewController in the main window
     func presentMainUI() {
         
         if let cityListViewController = Storyboard.cityList.initialViewController() as? CityListViewController,

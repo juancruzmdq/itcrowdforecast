@@ -52,6 +52,7 @@ class OpenWeatherProvider {
 extension OpenWeatherProvider: RemoteProviderServiceDelegate {
     
     func remoteProviderServiceValidate(response: [String: Any]) -> RemoteProviderServiceError? {
+        // If the response has a error code and a message, return a new RemoteProviderServiceError
         if let cod = response["cod"] as? Double,
             let message = response["message"] as? String {
             return RemoteProviderServiceError.serviceFailed(code: String(format: "%.0f", cod), message: message)
