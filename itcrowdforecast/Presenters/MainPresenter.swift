@@ -29,7 +29,7 @@ extension MainPresenter: MainPresenterProtocol {
     
     func presentMainUI() {
         
-        if let cityListViewController = Storyboard.cityList.initialViewController() as? CityListViewController {
+        if let cityListViewController: CityListViewController = ITStoryboard.cityList.initialViewController() {
             
             cityListViewController.viewModel = CityListViewModel(citiesServices: self.itCrowdForecast.citiesServices)
             cityListViewController.presenter = CityListPresenter(itCrowdForecast: self.itCrowdForecast)

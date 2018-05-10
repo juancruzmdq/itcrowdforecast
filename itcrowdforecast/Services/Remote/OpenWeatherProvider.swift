@@ -28,47 +28,38 @@ protocol OpenWeatherProviderProtocol {
 class OpenWeatherProvider {
     
     private static let openWeatherBaseURL = "http://api.openweathermap.org/data/2.5"
-
+    
     private let openWeatherKey: String
-    private var remoteProviderService: RemoteProviderServiceProtocol
+    private var remoteService: RemoteServiceProtocol
     
     /// Create a new instance of the OpenWeather API service with the specified account key
     ///
     /// - Parameter openWeatherKey: account key string
-    init(openWeatherKey: String) {
-
+    /// - networkActivityIndicator: Activity indicator handler
+    init(openWeatherKey: String, networkActivityIndicator: NetworkActivityIndicatorProtocol?) {
+        
         self.openWeatherKey = openWeatherKey
         
         let session = URLSession(configuration: .default)
         let url = URL(string: OpenWeatherProvider.openWeatherBaseURL)!
-
-        self.remoteProviderService = RemoteProviderService(baseUrl: url, session: session)
-        self.remoteProviderService.delegate = self
+        
+        self.remoteService = RemoteService(baseUrl: url,
+                                           session: session,
+                                           strategies: [KeyValueQueryItemStrategy(key: "appid", value: openWeatherKey),
+                                                        NetworkActivityIndicatorStrategy(networkActivityIndicator: networkActivityIndicator),
+                                                        OpenWeatherResponseValidationStrategy()])
     }
 }
 
 extension OpenWeatherProvider: OpenWeatherProviderProtocol {
 
     func weatherBy(city: String, completion: @escaping (Result<City>) -> Void) {
-        let endPoint = OpenWeatherEndPoint.byCityName(city: city, appId: self.openWeatherKey)
-        self.remoteProviderService.call(endpoint: endPoint, completion: completion)
+        let endPoint = OpenWeatherEndPoint.CityWeather.get(withName: city, key: self.openWeatherKey)
+        self.remoteService.call(endpoint: endPoint, completion: completion)
     }
 
     func weatherBy(uid: String, completion: @escaping (Result<City>) -> Void) {
-        let endPoint = OpenWeatherEndPoint.byCityId(uid: uid, appId: self.openWeatherKey)
-        self.remoteProviderService.call(endpoint: endPoint, completion: completion)
+        let endPoint = OpenWeatherEndPoint.CityWeather.get(withId: uid, key: self.openWeatherKey)
+        self.remoteService.call(endpoint: endPoint, completion: completion)
     }
-}
-
-extension OpenWeatherProvider: RemoteProviderServiceDelegate {
-    
-    func remoteProviderServiceValidate(response: [String: Any]) -> RemoteProviderServiceError? {
-        // If the response has a error code and a message, return a new RemoteProviderServiceError
-        if let cod = response["cod"] as? Double,
-            let message = response["message"] as? String {
-            return RemoteProviderServiceError.serviceFailed(code: String(format: "%.0f", cod), message: message)
-        }
-        return nil
-    }
-    
 }

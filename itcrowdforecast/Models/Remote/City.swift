@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// City forecast using Parseable as example
 class City {
     
     var uid: Double
@@ -39,9 +40,7 @@ struct CityParser: Parser {
                 return nil
         }
 
-        
         let city = City(uid: uid, name: name)
-        
         
         if let coord = dictionaryRepresentation["coord"] as? [String: Any] {
             city.latitude = coord["lat"] as? Double

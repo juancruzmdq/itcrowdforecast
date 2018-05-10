@@ -7,38 +7,24 @@
 
 import Foundation
 
-/// Set of OpenWeather's endpoints
+/// Set of OpenWeather endpoints
 ///
-/// - byCityName: Look the forecast for a city with the given name
-/// - byCityId: Look the forecast for a city with the given id
-enum OpenWeatherEndPoint: EndPointProtocol {
-    
-    case byCityName(city: String, appId: String)
-    case byCityId(uid: String, appId: String)
-
-    var path: String {
-        switch self {
-        case .byCityName, .byCityId:
-            return "/weather"
+/// - CityWeather: can return a city info by Id, or by cityname
+enum OpenWeatherEndPoint {
+    /// Namepace for "/weather" enpoints
+    enum CityWeather {
+        private static let path = "/weather"
+        
+        static func get(withName name: String, key: String) -> Endpoint<City> {
+            return Endpoint(method: .get,
+                            path: OpenWeatherEndPoint.CityWeather.path,
+                            parameters: ["q": name] )
+        }
+        static func get(withId uid: String, key: String) -> Endpoint<City> {
+            return Endpoint(method: .get,
+                            path: OpenWeatherEndPoint.CityWeather.path,
+                            parameters: ["id": uid] )
         }
     }
     
-    var parameters: [String: Any] {
-        switch self {
-        case let .byCityName(city, appId):
-            return ["q": city,
-                    "appid": appId]
-        case let .byCityId(uid, appId):
-            return ["id": uid,
-                    "appid": appId]
-        }
-    }
-    
-    var httpMethod: HTTPMethod {
-        switch self {
-        case .byCityName, .byCityId:
-            return HTTPMethod.GET
-        }
-    }
-
 }

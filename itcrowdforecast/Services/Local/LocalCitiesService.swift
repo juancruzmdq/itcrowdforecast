@@ -46,17 +46,7 @@ extension LocalCitiesService: LocalCitiesServiceProtocol {
         
         guard let context = self.store.managedObjectContext else { return nil }
         
-        let citiesFetchRequest: NSFetchRequest<LocalCity> = LocalCity.fetchRequest()
-        citiesFetchRequest.sortDescriptors = [
-            NSSortDescriptor(key: "name", ascending: true)
-        ]
-        
-        let fetchResultsController = NSFetchedResultsController(fetchRequest: citiesFetchRequest,
-                                                                managedObjectContext: context,
-                                                                sectionNameKeyPath: nil,
-                                                                cacheName: nil)
-        
-        return fetchResultsController
+        return LocalCity.fetchResultsController(in: context, sortBy: [ NSSortDescriptor(key: "name", ascending: true) ])
     }
     
     func updateOrCreateLocalCity(with city: City) {
@@ -64,14 +54,8 @@ extension LocalCitiesService: LocalCitiesServiceProtocol {
         guard let context = self.store.managedObjectContext else {
             return
         }
-        var localCity: LocalCity?
         
-        localCity = ManagedObjectHelper<LocalCity>.object(in: context, with: "\(city.uid)")
-
-        // If didn't found it then create it
-        if localCity == nil {
-            localCity = ManagedObjectHelper<LocalCity>.inserted(in: context)
-        }
+        let localCity = LocalCity.getOrCreateObject(in: context, with: "\(city.uid)")
         
         localCity?.uid = city.uid
         localCity?.name = city.name

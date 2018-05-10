@@ -35,7 +35,7 @@ class CityListPresenter {
 extension CityListPresenter: CityListPresenterProtocol {
     
     func cityDetail(for city: LocalCity, in navigation: UINavigationController) {
-        if let cityDetailViewController = Storyboard.cityDetail.initialViewController() as? CityDetailViewController {
+        if let cityDetailViewController: CityDetailViewController = ITStoryboard.cityDetail.initialViewController() {
             cityDetailViewController.viewModel = CityDetailViewModel(for: city)
             navigation.pushViewController(cityDetailViewController, animated: true)
         }

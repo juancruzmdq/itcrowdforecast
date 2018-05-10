@@ -23,28 +23,32 @@ class GoogleMapsProvider {
     private static let googleBaseURL = "https://maps.googleapis.com/maps/api/place"
     
     private let googleKey: String
-    private let remoteProviderService: RemoteProviderServiceProtocol
+    private let remoteService: RemoteServiceProtocol
     
     /// Create a new googleMap service with the given key
     ///
     /// - Parameter googleKey: google api key
-    init(googleKey: String) {
+    /// - networkActivityIndicator: Activity indicator handler
+    init(googleKey: String, networkActivityIndicator: NetworkActivityIndicatorProtocol? = nil) {
         
         self.googleKey = googleKey
-
+        
         let session = URLSession(configuration: .default)
         let url = URL(string: GoogleMapsProvider.googleBaseURL)!
-
-        self.remoteProviderService = RemoteProviderService(baseUrl: url, session: session)
+        
+        self.remoteService = RemoteService(baseUrl: url,
+                                           session: session,
+                                           strategies: [KeyValueQueryItemStrategy(key: "key", value: self.googleKey),
+                                                        NetworkActivityIndicatorStrategy(networkActivityIndicator: networkActivityIndicator)])
     }
     
 }
 
 extension GoogleMapsProvider: GoogleMapsProviderProtocol {
-
+    
     func autocomplete(input: String, completion: @escaping (Result<Predictions>) -> Void) {
-        let endPoint = GoogleMapsEndPoint.autocomplete(input: input, key: self.googleKey)
-        self.remoteProviderService.call(endpoint: endPoint, completion: completion)
+        let endPoint = GoogleMapsEndPoint.Autocomplete.get(for: input, key: self.googleKey)
+        self.remoteService.call(endpoint: endPoint, completion: completion)
     }
     
 }

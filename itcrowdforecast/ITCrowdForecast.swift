@@ -16,6 +16,7 @@ class ITCrowdForecast {
     private static let persistenContainerName = "itcrowdforecast"
 
     let coreDataStore: CoreDataStore
+    let networkActivityIndicator: NetworkActivityIndicatorProtocol
     let openWeatherProvider: OpenWeatherProviderProtocol
     let googleMapsProvider: GoogleMapsProviderProtocol
     let citiesServices: CitiesServicesProtocol
@@ -24,9 +25,10 @@ class ITCrowdForecast {
         
         Fabric.with([Crashlytics.self])
         
+        self.networkActivityIndicator = StatusBarNetworkActivityIndicator()
         self.coreDataStore = CoreDataStore(persistenContainerName: ITCrowdForecast.persistenContainerName)
-        self.openWeatherProvider = OpenWeatherProvider(openWeatherKey: ITCrowdForecast.openWeatherKey)
-        self.googleMapsProvider = GoogleMapsProvider(googleKey: ITCrowdForecast.googleKey)
+        self.openWeatherProvider = OpenWeatherProvider(openWeatherKey: ITCrowdForecast.openWeatherKey, networkActivityIndicator: self.networkActivityIndicator)
+        self.googleMapsProvider = GoogleMapsProvider(googleKey: ITCrowdForecast.googleKey, networkActivityIndicator: self.networkActivityIndicator)
         self.citiesServices = CitiesServices(localCitiesService: LocalCitiesService(store: self.coreDataStore ), openWeatherProvider: openWeatherProvider)
 
     }

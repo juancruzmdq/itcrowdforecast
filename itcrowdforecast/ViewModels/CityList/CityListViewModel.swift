@@ -50,6 +50,7 @@ class CityListViewModel: NSObject {
         
         self.loading = true
         
+        // TODO: This Logic should be inside CitiesServices
         // Get city by name from remote service
         self.citiesServices.weatherBy(city: name) { [weak self] result in
         

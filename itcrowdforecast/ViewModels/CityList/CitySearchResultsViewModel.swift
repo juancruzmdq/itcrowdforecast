@@ -45,12 +45,11 @@ class CitySearchResultsViewModel {
             switch predictions {
             case let .success(predictions):
                 // Create a custom prediction with the text typed by the use
-                let customPrediction = Prediction()
-                customPrediction.description = strongSelf.input
+                let customPrediction = Prediction(description: strongSelf.input)
                 var newItems = [customPrediction]
                 
                 // Concat the predictions from the google servide
-                newItems.append(contentsOf: predictions.items)
+                newItems.append(contentsOf: predictions.predictions)
                 
                 strongSelf.items = newItems
                 

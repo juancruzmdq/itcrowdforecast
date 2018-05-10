@@ -16,6 +16,8 @@ protocol CitiesServicesProtocol: LocalCitiesServiceProtocol, OpenWeatherProvider
     func reloadAllCities(completion:@escaping () -> Void)
 }
 
+/// TODO: Probably this class should expose only methods that works with LocalCity ( not with City )
+/// This class is in charge of the interaction between LocalCitiesService and OpenWeatherProvider
 class CitiesServices {
     
     let localCitiesService: LocalCitiesServiceProtocol

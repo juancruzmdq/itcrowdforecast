@@ -64,6 +64,17 @@ private extension CityListViewController {
         self.tableView.refreshControl = refreshControl
     }
 
+//    func updateNavigationBar() {
+//
+//        if let loading = self.viewModel?.loading, loading && self.refreshControl?.isRefreshing {
+//            let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+//            activityIndicator.startAnimating()
+//            self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: activityIndicator)
+//        } else {
+//            self.navigationItem.rightBarButtonItem = nil
+//        }
+//    }
+    
     @objc func refreshControl(_ sender: UIRefreshControl) {
         self.viewModel?.refreshAllCities()
     }

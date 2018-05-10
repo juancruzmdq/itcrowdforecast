@@ -7,15 +7,12 @@
 
 import UIKit
 
-enum Storyboard: String {
-    case cityList = "CityList"
-    case cityDetail = "CityDetail"
-}
+protocol Storyboard { }
 
-extension Storyboard {
+extension Storyboard where Self: RawRepresentable {
     
     var storyboard: UIStoryboard? {
-        return UIStoryboard(name: self.rawValue, bundle: nil)
+        return UIStoryboard(name: "\(self.rawValue)", bundle: nil)
     }
     
     func initialViewController<T: UIViewController>() -> T? {
