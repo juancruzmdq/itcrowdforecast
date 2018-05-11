@@ -12,7 +12,6 @@ protocol ConfigType {
     var appVersion: String { get }
     var buildNumber: String { get }
     var locale: Locale { get }
-    init(bundle: Bundle, locale: Locale)
 }
 
 /// Base App config implementation

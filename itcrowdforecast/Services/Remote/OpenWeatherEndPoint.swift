@@ -8,10 +8,10 @@
 import Foundation
 
 /// Set of OpenWeather endpoints
-///
-/// - CityWeather: can return a city info by Id, or by cityname
 enum OpenWeatherEndPoint {
     /// Namepace for "/weather" enpoints
+    ///
+    /// - CityWeather: can return a city info by Id, or by cityname
     enum CityWeather {
         private static let path = "/weather"
         

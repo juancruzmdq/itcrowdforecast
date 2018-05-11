@@ -8,10 +8,10 @@
 import Foundation
 
 /// Set of GoogleMaps endpoints
-///
-/// - Autocomplete: given an input text, return a list of cities name predictions
 enum GoogleMapsEndPoint {
     /// Namespace for "/autocomplete/json"
+    ///
+    /// - Autocomplete: given an input text, return a list of cities name predictions
     enum Autocomplete {
         private static let path = "/autocomplete/json"
         
