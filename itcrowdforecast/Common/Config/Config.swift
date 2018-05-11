@@ -23,7 +23,6 @@ struct Config: ConfigType {
     let buildNumber: String
     let locale: Locale
 
-    
     /// Init an instance of Config with the provided values
     ///
     /// - Parameters:
@@ -58,4 +57,5 @@ struct Config: ConfigType {
         
         self.buildNumber = (bundle.object(forInfoDictionaryKey: "CFBundleVersion") as? String) ?? "Invalid CFBundleVersion"
     }
+    
 }
