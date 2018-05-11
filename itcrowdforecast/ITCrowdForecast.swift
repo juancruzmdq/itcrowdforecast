@@ -11,10 +11,7 @@ import Crashlytics
 
 class ITCrowdForecast {
     
-    private static let googleKey = "AIzaSyBOPxZFIR8nBaLzXACGA9kRW2CbYxMsMTk"
-    private static let openWeatherKey = "e97ec39746568cc587b9fd0b7d34f7a1"
-    private static let persistenContainerName = "itcrowdforecast"
-
+    let config: ITCrowConfig
     let coreDataStore: CoreDataStore
     let networkActivityIndicator: NetworkActivityIndicatorProtocol
     let openWeatherProvider: OpenWeatherProviderProtocol
@@ -25,11 +22,20 @@ class ITCrowdForecast {
         
         Fabric.with([Crashlytics.self])
         
+        self.config = Config(bundle: .main, locale: .current)
+
         self.networkActivityIndicator = StatusBarNetworkActivityIndicator()
-        self.coreDataStore = CoreDataStore(persistenContainerName: ITCrowdForecast.persistenContainerName)
-        self.openWeatherProvider = OpenWeatherProvider(openWeatherKey: ITCrowdForecast.openWeatherKey, networkActivityIndicator: self.networkActivityIndicator)
-        self.googleMapsProvider = GoogleMapsProvider(googleKey: ITCrowdForecast.googleKey, networkActivityIndicator: self.networkActivityIndicator)
-        self.citiesServices = CitiesServices(localCitiesService: LocalCitiesService(store: self.coreDataStore ), openWeatherProvider: openWeatherProvider)
+
+        self.coreDataStore = CoreDataStore(config: self.config)
+
+        self.openWeatherProvider = OpenWeatherProvider(config: self.config,
+                                                       networkActivityIndicator: self.networkActivityIndicator)
+        
+        self.googleMapsProvider = GoogleMapsProvider(config: self.config,
+                                                     networkActivityIndicator: self.networkActivityIndicator)
+        
+        self.citiesServices = CitiesServices(localCitiesService: LocalCitiesService(store: self.coreDataStore ),
+                                             openWeatherProvider: openWeatherProvider)
 
     }
 }

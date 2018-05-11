@@ -7,6 +7,12 @@
 
 import Foundation
 
+/// Protocol to be implemented by the OpenWeatherProviderConfig provider
+protocol OpenWeatherProviderConfigProtocol {
+    var openWeatherKey: String { get }
+    var openWeatherBaseURL: String { get }
+}
+
 protocol OpenWeatherProviderProtocol {
     
     /// Get the weather report for a city with the specified name
@@ -27,21 +33,22 @@ protocol OpenWeatherProviderProtocol {
 /// Service to interact with the OpenWeather's API
 class OpenWeatherProvider {
     
-    private static let openWeatherBaseURL = "http://api.openweathermap.org/data/2.5"
-    
+    private let openWeatherBaseURL: String
     private let openWeatherKey: String
+    
     private var remoteService: RemoteServiceProtocol
     
     /// Create a new instance of the OpenWeather API service with the specified account key
     ///
-    /// - Parameter openWeatherKey: account key string
+    /// - Parameter config: instance of a OpenWeatherProviderConfigProtocol
     /// - networkActivityIndicator: Activity indicator handler
-    init(openWeatherKey: String, networkActivityIndicator: NetworkActivityIndicatorProtocol?) {
+    init(config: OpenWeatherProviderConfigProtocol, networkActivityIndicator: NetworkActivityIndicatorProtocol?) {
         
-        self.openWeatherKey = openWeatherKey
-        
+        self.openWeatherKey = config.openWeatherKey
+        self.openWeatherBaseURL = config.openWeatherBaseURL
+
         let session = URLSession(configuration: .default)
-        let url = URL(string: OpenWeatherProvider.openWeatherBaseURL)!
+        let url = URL(string: self.openWeatherBaseURL)!
         
         self.remoteService = RemoteService(baseUrl: url,
                                            session: session,

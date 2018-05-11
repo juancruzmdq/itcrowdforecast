@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		80FB90C35444E36492851E42 /* Pods_itcrowdforecast.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1CDAD4161E4C154DBD7F70B2 /* Pods_itcrowdforecast.framework */; };
+		EE01D09520A6003100820230 /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE01D09320A6003100820230 /* Environment.swift */; };
+		EE01D09620A6003100820230 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE01D09420A6003100820230 /* Config.swift */; };
+		EE01D09820A605EC00820230 /* ITCrowConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE01D09720A605EC00820230 /* ITCrowConfig.swift */; };
 		EE413F8020A21FB400EED014 /* ITCrowdStoryboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE413F7F20A21FB400EED014 /* ITCrowdStoryboard.swift */; };
 		EE413F8220A224B700EED014 /* NetworkActivityIndicatorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE413F8120A224B700EED014 /* NetworkActivityIndicatorProtocol.swift */; };
 		EE413F8420A226F500EED014 /* StatusBarNetworkActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE413F8320A226F500EED014 /* StatusBarNetworkActivityIndicator.swift */; };
@@ -64,6 +67,9 @@
 		1CDAD4161E4C154DBD7F70B2 /* Pods_itcrowdforecast.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_itcrowdforecast.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3CAF0C4A298F7EA288D0A473 /* Pods-itcrowdforecast.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-itcrowdforecast.release.xcconfig"; path = "Pods/Target Support Files/Pods-itcrowdforecast/Pods-itcrowdforecast.release.xcconfig"; sourceTree = "<group>"; };
 		90FA0F47CE66436388ED1BDC /* Pods-itcrowdforecast.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-itcrowdforecast.debug.xcconfig"; path = "Pods/Target Support Files/Pods-itcrowdforecast/Pods-itcrowdforecast.debug.xcconfig"; sourceTree = "<group>"; };
+		EE01D09320A6003100820230 /* Environment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
+		EE01D09420A6003100820230 /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
+		EE01D09720A605EC00820230 /* ITCrowConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ITCrowConfig.swift; sourceTree = "<group>"; };
 		EE413F7F20A21FB400EED014 /* ITCrowdStoryboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ITCrowdStoryboard.swift; sourceTree = "<group>"; };
 		EE413F8120A224B700EED014 /* NetworkActivityIndicatorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkActivityIndicatorProtocol.swift; sourceTree = "<group>"; };
 		EE413F8320A226F500EED014 /* StatusBarNetworkActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusBarNetworkActivityIndicator.swift; sourceTree = "<group>"; };
@@ -146,6 +152,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		EE01D09220A6002800820230 /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				EE01D09420A6003100820230 /* Config.swift */,
+				EE01D09320A6003100820230 /* Environment.swift */,
+			);
+			path = Config;
+			sourceTree = "<group>";
+		};
 		EE413F8720A242EE00EED014 /* Remote */ = {
 			isa = PBXGroup;
 			children = (
@@ -224,6 +239,7 @@
 		EE9F87C5209DE44B0029AB7A /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				EE01D09220A6002800820230 /* Config */,
 				EE9F87C6209DE4680029AB7A /* Networking */,
 				EE9F87E9209E2CCF0029AB7A /* LocalStore */,
 				EE9F87EE209E2CE00029AB7A /* Storyboard.swift */,
@@ -325,6 +341,7 @@
 				EE9F87F0209E36D50029AB7A /* Presenters */,
 				EEB87455209D15B40055981A /* AppDelegate.swift */,
 				EEDDDB84209F8E9700F82655 /* ITCrowdForecast.swift */,
+				EE01D09720A605EC00820230 /* ITCrowConfig.swift */,
 				EEB8745C209D15B60055981A /* Assets.xcassets */,
 				EEB8745E209D15B60055981A /* LaunchScreen.storyboard */,
 				EEB87461209D15B60055981A /* Info.plist */,
@@ -514,8 +531,10 @@
 				EE567A4220A087DF00DD0218 /* CityDetailViewController.swift in Sources */,
 				EE9F87FA209E46580029AB7A /* GoogleMapsProvider.swift in Sources */,
 				EE9F87EF209E2CE00029AB7A /* Storyboard.swift in Sources */,
+				EE01D09820A605EC00820230 /* ITCrowConfig.swift in Sources */,
 				EE9F87D2209DF3AC0029AB7A /* OpenWeatherProvider.swift in Sources */,
 				EEB87456209D15B40055981A /* AppDelegate.swift in Sources */,
+				EE01D09520A6003100820230 /* Environment.swift in Sources */,
 				EE9F87E0209E1C100029AB7A /* itcrowdforecast.xcdatamodeld in Sources */,
 				EE9F87CE209DE95B0029AB7A /* RemoteService.swift in Sources */,
 				EE567A3F20A087DF00DD0218 /* CityTableViewCell.swift in Sources */,
@@ -534,6 +553,7 @@
 				EEDDDB85209F8E9700F82655 /* ITCrowdForecast.swift in Sources */,
 				EE413F8E20A242EE00EED014 /* City.swift in Sources */,
 				EE413F8220A224B700EED014 /* NetworkActivityIndicatorProtocol.swift in Sources */,
+				EE01D09620A6003100820230 /* Config.swift in Sources */,
 				EE413F8D20A242EE00EED014 /* Predictions.swift in Sources */,
 				EE9F87F8209E45FF0029AB7A /* GoogleMapsEndPoint.swift in Sources */,
 				EE9F87EC209E2CD00029AB7A /* CoreDataStore.swift in Sources */,

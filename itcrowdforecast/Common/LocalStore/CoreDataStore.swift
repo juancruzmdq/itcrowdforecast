@@ -8,12 +8,17 @@
 import UIKit
 import CoreData
 
+/// Protocol to be implemented by the CoreDataStoreConfig provider
+protocol CoreDataStoreConfigProtocol {
+    var persistenContainerName: String { get }
+}
+
 /// Class to manage a core data stack
 class CoreDataStore {
     let persistenContainerName: String
     
-    init(persistenContainerName: String) {
-        self.persistenContainerName = persistenContainerName
+    init(config: CoreDataStoreConfigProtocol) {
+        self.persistenContainerName = config.persistenContainerName
     }
     
     var persistentStoreCoordinator: NSPersistentStoreCoordinator? {

@@ -7,6 +7,12 @@
 
 import Foundation
 
+/// Protocol to be implemented by the GoogleMapProviderConfig provider
+protocol GoogleMapProviderConfigProtocol {
+    var googleKey: String { get }
+    var googleBaseURL: String { get }
+}
+
 protocol GoogleMapsProviderProtocol {
     
     /// Return a list of predictions with posibles cities names for the input text
@@ -20,21 +26,21 @@ protocol GoogleMapsProviderProtocol {
 /// Service to interact with the GoogleMap's API
 class GoogleMapsProvider {
     
-    private static let googleBaseURL = "https://maps.googleapis.com/maps/api/place"
-    
+    private let googleBaseURL: String
     private let googleKey: String
     private let remoteService: RemoteServiceProtocol
     
     /// Create a new googleMap service with the given key
     ///
-    /// - Parameter googleKey: google api key
+    /// - Parameter config: instance of a GoogleMapProviderConfigProtocol
     /// - networkActivityIndicator: Activity indicator handler
-    init(googleKey: String, networkActivityIndicator: NetworkActivityIndicatorProtocol? = nil) {
+    init(config: GoogleMapProviderConfigProtocol, networkActivityIndicator: NetworkActivityIndicatorProtocol? = nil) {
         
-        self.googleKey = googleKey
-        
+        self.googleKey = config.googleKey
+        self.googleBaseURL = config.googleBaseURL
+
         let session = URLSession(configuration: .default)
-        let url = URL(string: GoogleMapsProvider.googleBaseURL)!
+        let url = URL(string: self.googleBaseURL)!
         
         self.remoteService = RemoteService(baseUrl: url,
                                            session: session,
