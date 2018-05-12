@@ -24,6 +24,26 @@ enum RemoteServiceError: Error {
     case conversionToJsonFailed()
     case objectParseFailed()
     case serviceFailed(code: String, message: String)
+
+    var localizedDescription: String {
+        switch self {
+        case let .dataTaskFailed(message):
+            return "dataTaskFailed: \(message)"
+        case .invalidURL:
+            return "invalidURL..."
+        case .invalidURLComponents:
+            return "invalidURLComponents..."
+        case .emptyDataResponse:
+            return "emptyDataResponse..."
+        case .conversionToJsonFailed:
+            return "conversionToJsonFailed..."
+        case .objectParseFailed:
+            return "objectParseFailed..."
+        case let .serviceFailed(code, message):
+            return "serviceFailed code= \(code), message\(message)"
+        }
+    }
+
 }
 
 protocol RemoteServiceProtocol {

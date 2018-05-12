@@ -8,15 +8,37 @@
 import Foundation
 import CoreData
 
-protocol CitiesServicesProtocol: LocalCitiesServiceProtocol, OpenWeatherProviderProtocol {
+enum ModelServiceResultError {
+    case remoteServiceError(_: RemoteServiceError)
+    case localServiceError(_: String)
+    
+    var localizedDescription: String {
+        switch self {
+        case let .remoteServiceError(error):
+            return "remoteServiceError: \(error.localizedDescription)"
+        case let .localServiceError(message):
+            return "localServiceError: \(message)"
+        }
+    }
+}
+
+enum ModelServiceResult<T> {
+    case success(_: T)
+    case failure(_: ModelServiceResultError)
+}
+
+protocol CitiesServicesProtocol: LocalCitiesServiceProtocol {
     
     /// Get all cities stored locally, and call API tu update the forecast.
     ///
     /// - Parameter completion: Block called at the ende of cities the update.
     func reloadAllCities(completion:@escaping () -> Void)
+    
+    func weatherBy(city: String, completion: @escaping (ModelServiceResult<LocalCity>) -> Void)
+    
+    func weatherBy(uid: String, completion: @escaping (ModelServiceResult<LocalCity>) -> Void)
 }
 
-/// TODO: Probably this class should expose only methods that works with LocalCity ( not with City )
 /// This class is in charge of the interaction between LocalCitiesService and OpenWeatherProvider
 class CitiesServices {
     
@@ -31,6 +53,51 @@ class CitiesServices {
 }
 
 extension CitiesServices: CitiesServicesProtocol {
+    
+    func weatherBy(city: String, completion: @escaping (ModelServiceResult<LocalCity>) -> Void) {
+        
+        self.openWeatherProvider.weatherBy(city: city) { [weak self] result in
+            
+            guard let strongSelf = self else { return }
+            
+            switch result {
+            case let .success(city):
+                // store city in local store
+                strongSelf.localCitiesService.updateOrCreateLocalCity(with: city) { city in
+                    if let city = city {
+                        completion(.success(city))
+                    } else {
+                        completion(.failure(.localServiceError("Return empty instance of LocalCity")))
+                    }
+                }
+            case let .failure(error):
+                completion(.failure(.remoteServiceError(error)))
+            }
+        }
+
+    }
+    
+    func weatherBy(uid: String, completion: @escaping (ModelServiceResult<LocalCity>) -> Void) {
+        
+        self.openWeatherProvider.weatherBy(uid: uid) { [weak self] result in
+            
+            guard let strongSelf = self else { return }
+            
+            switch result {
+            case let .success(city):
+                // store city in local store
+                strongSelf.localCitiesService.updateOrCreateLocalCity(with: city) { city in
+                    if let city = city {
+                        completion(.success(city))
+                    } else {
+                        completion(.failure(.localServiceError("Return empty instance of LocalCity")))
+                    }
+                }
+            case let .failure(error):
+                completion(.failure(.remoteServiceError(error)))
+            }
+        }
+    }
     
     func reloadAllCities(completion:@escaping () -> Void) {
         
@@ -61,7 +128,7 @@ extension CitiesServices: CitiesServicesProtocol {
                 
                 switch result {
                 case let .success(city):
-                    strongSelf.localCitiesService.updateOrCreateLocalCity(with: city)
+                    strongSelf.localCitiesService.updateOrCreateLocalCity(with: city, completion: nil)
                 default:
                     break
                 }
@@ -82,20 +149,12 @@ extension CitiesServices: CitiesServicesProtocol {
         return self.localCitiesService.buildCitiesFetchController()
     }
     
-    func updateOrCreateLocalCity(with city: City) {
-        self.localCitiesService.updateOrCreateLocalCity(with: city)
+    func updateOrCreateLocalCity(with city: City, completion: ((LocalCity?) -> Void)?) {
+        self.localCitiesService.updateOrCreateLocalCity(with: city, completion: completion)
     }
     
     func delete(_ city: LocalCity) {
         self.localCitiesService.delete(city)
     }
     
-    func weatherBy(city: String, completion: @escaping (Result<City>) -> Void) {
-        self.openWeatherProvider.weatherBy(city: city, completion: completion)
-    }
-    
-    func weatherBy(uid: String, completion: @escaping (Result<City>) -> Void) {
-        self.openWeatherProvider.weatherBy(uid: uid, completion: completion)
-    }
-
 }

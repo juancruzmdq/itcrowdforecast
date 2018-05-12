@@ -40,9 +40,9 @@ class CityListViewModel: NSObject {
         
         super.init()
 
-        fetchResultsController = citiesServices.buildCitiesFetchController()
-        fetchResultsController?.delegate = self
-        try? fetchResultsController?.performFetch()
+        self.fetchResultsController = self.citiesServices.buildCitiesFetchController()
+        self.fetchResultsController?.delegate = self
+        try? self.fetchResultsController?.performFetch()
 
     }
     
@@ -50,7 +50,6 @@ class CityListViewModel: NSObject {
         
         self.loading = true
         
-        // TODO: This Logic should be inside CitiesServices
         // Get city by name from remote service
         self.citiesServices.weatherBy(city: name) { [weak self] result in
         
@@ -59,9 +58,8 @@ class CityListViewModel: NSObject {
             strongSelf.loading = false
             
             switch result {
-            case let .success(city):
-                // store city in local store
-                strongSelf.citiesServices.updateOrCreateLocalCity(with: city)
+            case .success:
+            break // nothing to do, the info will be updated with fetchResultsController
             case .failure:
                 strongSelf.delegate?.cityListViewModel(strongSelf, failLookupFor: name)
             }

@@ -18,7 +18,8 @@ protocol LocalCitiesServiceProtocol {
     /// Look locally an instance of the specified city to update it, if doesn't exist create the instance
     ///
     /// - Parameter city: city to create/update
-    func updateOrCreateLocalCity(with city: City)
+    /// - Returns: Block that get the LocalCity as parametter
+    func updateOrCreateLocalCity(with city: City, completion: ((LocalCity?) -> Void)?)
 
     /// Delete an instance of the city
     ///
@@ -41,7 +42,7 @@ class LocalCitiesService {
 }
 
 extension LocalCitiesService: LocalCitiesServiceProtocol {
-
+    
     func buildCitiesFetchController() -> NSFetchedResultsController<LocalCity>? {
         
         guard let context = self.store.managedObjectContext else { return nil }
@@ -49,12 +50,13 @@ extension LocalCitiesService: LocalCitiesServiceProtocol {
         return LocalCity.fetchResultsController(in: context, sortBy: [ NSSortDescriptor(key: "name", ascending: true) ])
     }
     
-    func updateOrCreateLocalCity(with city: City) {
-        
+    func updateOrCreateLocalCity(with city: City, completion: ((LocalCity?) -> Void)?) {
+
         guard let context = self.store.managedObjectContext else {
             return
         }
         
+        // TODO: Extract this to Mappers
         let localCity = LocalCity.getOrCreateObject(in: context, with: "\(city.uid)")
         
         localCity?.uid = city.uid
@@ -71,6 +73,7 @@ extension LocalCitiesService: LocalCitiesServiceProtocol {
         context.perform {
             do {
                 try context.save()
+                completion?(localCity)
             } catch {
                 print("Unable to save [\(context.debugDescription)] context. Error: \(error)")
             }

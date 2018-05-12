@@ -34,7 +34,7 @@ class ITCrowdForecast {
         self.googleMapsProvider = GoogleMapsProvider(config: self.config,
                                                      networkActivityIndicator: self.networkActivityIndicator)
         
-        self.citiesServices = CitiesServices(localCitiesService: LocalCitiesService(store: self.coreDataStore ),
+        self.citiesServices = CitiesServices(localCitiesService: LocalCitiesService(store: self.coreDataStore),
                                              openWeatherProvider: openWeatherProvider)
 
     }
