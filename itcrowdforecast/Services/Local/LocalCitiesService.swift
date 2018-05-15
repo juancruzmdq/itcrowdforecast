@@ -56,27 +56,27 @@ extension LocalCitiesService: LocalCitiesServiceProtocol {
             return
         }
         
-        // TODO: Extract this to Mappers
-        let localCity = LocalCity.getOrCreateObject(in: context, with: "\(city.uid)")
-        
-        localCity?.uid = city.uid
-        localCity?.name = city.name
-        localCity?.latitude = city.latitude ?? 0
-        localCity?.longitude = city.longitude ?? 0
-
-        localCity?.temperature = city.temperature ?? 0
-        localCity?.pressure = city.pressure ?? 0
-        localCity?.humidity = city.humidity ?? 0
-        localCity?.minTemperature = city.minTemperature ?? 0
-        localCity?.maxTemperature = city.maxTemperature ?? 0
-
-        context.perform {
-            do {
-                try context.save()
-                completion?(localCity)
-            } catch {
-                print("Unable to save [\(context.debugDescription)] context. Error: \(error)")
-            }
+        DispatchQueue.global(qos: .background).async {
+            
+            let childContext = NSManagedObjectContext(
+                concurrencyType: .privateQueueConcurrencyType)
+            childContext.parent = context
+            
+            // TODO: Extract this to Mappers?
+            let localCity = LocalCity.getOrCreateObject(in: childContext, with: "\(city.uid)")
+            
+            localCity?.uid = city.uid
+            localCity?.name = city.name
+            localCity?.latitude = city.latitude ?? 0
+            localCity?.longitude = city.longitude ?? 0
+            
+            localCity?.temperature = city.temperature ?? 0
+            localCity?.pressure = city.pressure ?? 0
+            localCity?.humidity = city.humidity ?? 0
+            localCity?.minTemperature = city.minTemperature ?? 0
+            localCity?.maxTemperature = city.maxTemperature ?? 0
+            
+            childContext.recurrentSaveContext()
         }
 
     }
@@ -97,4 +97,5 @@ extension LocalCitiesService: LocalCitiesServiceProtocol {
         }
 
     }
+
 }
