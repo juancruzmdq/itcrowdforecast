@@ -26,8 +26,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func applicationDidBecomeActive(_ application: UIApplication) {
-        self.itCrowdForecast.citiesServices.reloadAllCities {
-            print("Local repository updated")
+        self.itCrowdForecast.citiesServices.reloadAllCities { cities in
+            print("Local repository updated. number of cities: \(cities.count)")
         }
     }
     

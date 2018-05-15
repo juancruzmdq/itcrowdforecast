@@ -27,13 +27,23 @@ enum ModelServiceResult<T> {
     case failure(_: ModelServiceResultError)
 }
 
-protocol CitiesServicesProtocol: LocalCitiesServiceProtocol {
+protocol CitiesServicesProtocol {
+    
+    /// Create a NSFetchedResultsController to retrieve the LocalCity instances
+    ///
+    /// - Returns: NSFetchedResultsController<LocalCity> instance
+    func buildCitiesFetchController() -> NSFetchedResultsController<LocalCity>?
     
     /// Get all cities stored locally, and call API tu update the forecast.
     ///
     /// - Parameter completion: Block called at the ende of cities the update.
-    func reloadAllCities(completion:@escaping () -> Void)
+    func reloadAllCities(completion:@escaping ([LocalCity]) -> Void)
     
+    /// Delete an instance of the city
+    ///
+    /// - Parameter city: city to delete
+    func delete(_ city: LocalCity)
+
     func weatherBy(city: String, completion: @escaping (ModelServiceResult<LocalCity>) -> Void)
     
     func weatherBy(uid: String, completion: @escaping (ModelServiceResult<LocalCity>) -> Void)
@@ -99,7 +109,9 @@ extension CitiesServices: CitiesServicesProtocol {
         }
     }
     
-    func reloadAllCities(completion:@escaping () -> Void) {
+    func reloadAllCities(completion:@escaping ([LocalCity]) -> Void) {
+        
+        var cities = [City]()
         
         // Get all cities
         let fetchResultsController = localCitiesService.buildCitiesFetchController()
@@ -122,13 +134,10 @@ extension CitiesServices: CitiesServicesProtocol {
             // or this two:
             // http://api.openweathermap.org/data/2.5/weather?q=Mar%20del%20Plata,%20Buenos%20Aires,%20Argentina&appid=e97ec39746568cc587b9fd0b7d34f7a1
             // http://api.openweathermap.org/data/2.5/weather?q=Caleta%20Olivia,%20Santa%20Cruz%20Province,%20Argentina&appid=e97ec39746568cc587b9fd0b7d34f7a1
-            self.openWeatherProvider.weatherBy(city: cityName) { [weak self] result in
-                
-                guard let strongSelf = self else { return }
-                
+            self.openWeatherProvider.weatherBy(city: cityName) { result in
                 switch result {
                 case let .success(city):
-                    strongSelf.localCitiesService.updateOrCreateLocalCity(with: city, completion: nil)
+                    cities.append(city)
                 default:
                     break
                 }
@@ -138,9 +147,10 @@ extension CitiesServices: CitiesServicesProtocol {
             
         }
         
-        dispatchGroup.notify(queue: DispatchQueue.main) {
+        dispatchGroup.notify(queue: DispatchQueue.main) { [weak self] in
+            guard let strongSelf = self else { return }
             // Once that all async tasks finished, finish this global task
-            completion()
+            strongSelf.localCitiesService.updateOrCreateLocalCities(with: cities, completion: completion)
         }
         
     }
@@ -148,13 +158,9 @@ extension CitiesServices: CitiesServicesProtocol {
     func buildCitiesFetchController() -> NSFetchedResultsController<LocalCity>? {
         return self.localCitiesService.buildCitiesFetchController()
     }
-    
-    func updateOrCreateLocalCity(with city: City, completion: ((LocalCity?) -> Void)?) {
-        self.localCitiesService.updateOrCreateLocalCity(with: city, completion: completion)
-    }
-    
+
     func delete(_ city: LocalCity) {
         self.localCitiesService.delete(city)
     }
-    
+
 }

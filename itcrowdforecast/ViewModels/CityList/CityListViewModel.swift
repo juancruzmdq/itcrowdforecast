@@ -75,7 +75,7 @@ class CityListViewModel: NSObject {
     func refreshAllCities() {
         
         self.loading = true
-        self.citiesServices.reloadAllCities { [weak self] in
+        self.citiesServices.reloadAllCities { [weak self] _ in
             guard let strongSelf = self else { return }
 
             strongSelf.loading = false
