@@ -45,16 +45,14 @@ extension LocalCitiesService: LocalCitiesServiceProtocol {
     
     func buildCitiesFetchController() -> NSFetchedResultsController<LocalCity>? {
         
-        guard let context = self.store.managedObjectContext else { return nil }
+        let context = self.store.viewContext
         
         return LocalCity.fetchResultsController(in: context, sortBy: [ NSSortDescriptor(key: "name", ascending: true) ])
     }
     
     func updateOrCreateLocalCity(with city: City, completion: ((LocalCity?) -> Void)?) {
 
-        guard let context = self.store.managedObjectContext else {
-            return
-        }
+        let context = self.store.viewContext
         
         DispatchQueue.global(qos: .background).async {
             

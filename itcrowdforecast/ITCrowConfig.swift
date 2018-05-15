@@ -14,6 +14,15 @@ typealias ITCrowConfig = ConfigType &
 
 extension Config: CoreDataStoreConfigProtocol {
 
+    var persistentStoreTypes: PersistentStoreTypes {
+        switch environment {
+        case .mock:
+            return .inMemoryStoreType
+        default:
+            return .SQLiteStoreType
+        }
+    }
+    
     var persistenContainerName: String {
         // example of setting a config value dependng of the environment
         switch environment {
