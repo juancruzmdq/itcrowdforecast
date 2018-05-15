@@ -11,6 +11,10 @@ import CoreData
 extension NSManagedObjectContext {
     
     func recurrentSaveContext() {
+        NSManagedObjectContext.recurrentSaveContext(self)
+    }
+    
+    static func recurrentSaveContext(_ context: NSManagedObjectContext) {
         context.perform {
             do {
                 try context.save()
@@ -20,8 +24,15 @@ extension NSManagedObjectContext {
             }
             
             if let parentContext = context.parent {
-                self.recurrentSaveContext(parentContext)
+                NSManagedObjectContext.recurrentSaveContext(parentContext)
             }
         }
+    }
+    
+    func childContext(concurrencyType: NSManagedObjectContextConcurrencyType = .privateQueueConcurrencyType) -> NSManagedObjectContext {
+        let childContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
+        childContext.parent = self
+        return childContext
+
     }
 }

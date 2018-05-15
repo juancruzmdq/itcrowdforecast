@@ -58,9 +58,7 @@ extension LocalCitiesService: LocalCitiesServiceProtocol {
         
         DispatchQueue.global(qos: .background).async {
             
-            let childContext = NSManagedObjectContext(
-                concurrencyType: .privateQueueConcurrencyType)
-            childContext.parent = context
+            let childContext = context.childContext()
             
             // TODO: Extract this to Mappers?
             let localCity = LocalCity.getOrCreateObject(in: childContext, with: "\(city.uid)")
@@ -82,20 +80,8 @@ extension LocalCitiesService: LocalCitiesServiceProtocol {
     }
 
     func delete(_ city: LocalCity) {
-        guard let context = self.store.managedObjectContext else {
-            return
-        }
-        
-        context.delete(city)
-
-        context.perform {
-            do {
-                try context.save()
-            } catch {
-                print("Unable to save [\(context.debugDescription)] context. Error: \(error)")
-            }
-        }
-
+        city.managedObjectContext?.delete(city)
+        city.managedObjectContext?.recurrentSaveContext()
     }
 
 }
