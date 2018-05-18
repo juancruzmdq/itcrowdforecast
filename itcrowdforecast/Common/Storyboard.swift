@@ -7,15 +7,19 @@
 
 import UIKit
 
-protocol Storyboard { }
+protocol Storyboard {
+    func storyboard(in bundle: Bundle?) -> UIStoryboard?
+    func initialViewController<T: UIViewController>(in bundle: Bundle?) -> T?
+}
 
 extension Storyboard where Self: RawRepresentable {
     
-    var storyboard: UIStoryboard? {
-        return UIStoryboard(name: "\(self.rawValue)", bundle: nil)
+    func storyboard(in bundle: Bundle? = nil) -> UIStoryboard? {
+        return UIStoryboard(name: "\(self.rawValue)", bundle: bundle)
     }
     
-    func initialViewController<T: UIViewController>() -> T? {
+    func initialViewController<T: UIViewController>(in bundle: Bundle? = nil) -> T? {
+        let storyboard = self.storyboard(in: bundle)
         return storyboard?.instantiateInitialViewController() as? T
     }
 

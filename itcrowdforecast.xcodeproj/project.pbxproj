@@ -50,7 +50,10 @@
 		EEB87456209D15B40055981A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB87455209D15B40055981A /* AppDelegate.swift */; };
 		EEB8745D209D15B60055981A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EEB8745C209D15B60055981A /* Assets.xcassets */; };
 		EEB87460209D15B60055981A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EEB8745E209D15B60055981A /* LaunchScreen.storyboard */; };
-		EEB8746B209D15B60055981A /* itcrowdforecastTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB8746A209D15B60055981A /* itcrowdforecastTests.swift */; };
+		EEC19B8B20AF18A0003333C7 /* CommonConfigTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC19B8720AF18A0003333C7 /* CommonConfigTest.swift */; };
+		EEC19B8C20AF18A0003333C7 /* StoryboardTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC19B8920AF18A0003333C7 /* StoryboardTest.swift */; };
+		EEC19B8D20AF18A0003333C7 /* StoryboardTest.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EEC19B8A20AF18A0003333C7 /* StoryboardTest.storyboard */; };
+		EEC19B9020AF1A5C003333C7 /* EndpointTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC19B8F20AF1A5B003333C7 /* EndpointTest.swift */; };
 		EEDDDB85209F8E9700F82655 /* ITCrowdForecast.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEDDDB84209F8E9700F82655 /* ITCrowdForecast.swift */; };
 /* End PBXBuildFile section */
 
@@ -113,8 +116,11 @@
 		EEB8745F209D15B60055981A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		EEB87461209D15B60055981A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EEB87466209D15B60055981A /* itcrowdforecastTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = itcrowdforecastTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		EEB8746A209D15B60055981A /* itcrowdforecastTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = itcrowdforecastTests.swift; sourceTree = "<group>"; };
 		EEB8746C209D15B60055981A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EEC19B8720AF18A0003333C7 /* CommonConfigTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonConfigTest.swift; sourceTree = "<group>"; };
+		EEC19B8920AF18A0003333C7 /* StoryboardTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoryboardTest.swift; sourceTree = "<group>"; };
+		EEC19B8A20AF18A0003333C7 /* StoryboardTest.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = StoryboardTest.storyboard; sourceTree = "<group>"; };
+		EEC19B8F20AF1A5B003333C7 /* EndpointTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndpointTest.swift; sourceTree = "<group>"; };
 		EEDDDB84209F8E9700F82655 /* ITCrowdForecast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ITCrowdForecast.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -355,7 +361,7 @@
 		EEB87469209D15B60055981A /* itcrowdforecastTests */ = {
 			isa = PBXGroup;
 			children = (
-				EEB8746A209D15B60055981A /* itcrowdforecastTests.swift */,
+				EEC19B8620AF18A0003333C7 /* Common */,
 				EEB8746C209D15B60055981A /* Info.plist */,
 			);
 			path = itcrowdforecastTests;
@@ -368,6 +374,33 @@
 				EE413F8720A242EE00EED014 /* Remote */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		EEC19B8620AF18A0003333C7 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				EEC19B8E20AF1A42003333C7 /* Networking */,
+				EEC19B8820AF18A0003333C7 /* StoryboardTest */,
+				EEC19B8720AF18A0003333C7 /* CommonConfigTest.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		EEC19B8820AF18A0003333C7 /* StoryboardTest */ = {
+			isa = PBXGroup;
+			children = (
+				EEC19B8920AF18A0003333C7 /* StoryboardTest.swift */,
+				EEC19B8A20AF18A0003333C7 /* StoryboardTest.storyboard */,
+			);
+			path = StoryboardTest;
+			sourceTree = "<group>";
+		};
+		EEC19B8E20AF1A42003333C7 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				EEC19B8F20AF1A5B003333C7 /* EndpointTest.swift */,
+			);
+			path = Networking;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -464,6 +497,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EEC19B8D20AF18A0003333C7 /* StoryboardTest.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -569,7 +603,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EEB8746B209D15B60055981A /* itcrowdforecastTests.swift in Sources */,
+				EEC19B9020AF1A5C003333C7 /* EndpointTest.swift in Sources */,
+				EEC19B8C20AF18A0003333C7 /* StoryboardTest.swift in Sources */,
+				EEC19B8B20AF18A0003333C7 /* CommonConfigTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
