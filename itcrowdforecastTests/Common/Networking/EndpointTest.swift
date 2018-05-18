@@ -8,28 +8,8 @@
 import XCTest
 @testable import itcrowdforecast
 
-class EndpointTestModel {
+private class EndpointTestModel {
     
-}
-
-class EndpointTestModelDecodable: Decodable {
-    var key: String?
-}
-
-class EndpointTestModelParseable: Parseable {
-    typealias ParserType = EndpointTestModelParseableParser
-    var key: String?
-}
-struct EndpointTestModelParseableParser: Parser {
-    
-    static func parse(_ dictionaryRepresentation: [String: Any]) -> EndpointTestModelParseable? {
-        if let key = dictionaryRepresentation["key"] as? String {
-            let model = EndpointTestModelParseable()
-            model.key = key
-            return model
-        }
-        return nil
-    }
 }
 
 class EndpointTest: XCTestCase {

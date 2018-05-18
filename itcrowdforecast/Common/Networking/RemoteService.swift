@@ -56,7 +56,7 @@ protocol RemoteServiceProtocol {
     ///   - endpoint: Endpoint to call
     ///   - completion: Block to be called when Endpoint's call finish
     @discardableResult
-    func call<T>(endpoint: Endpoint<T>, completion: @escaping (Result<T>) -> Void) -> URLSessionDataTask?
+    func call<T>(endpoint: Endpoint<T>, completion: @escaping (Result<T>) -> Void) -> URLSessionDataTaskProtocol?
 }
 
 /// Class that works as interface of a remot web service
@@ -65,7 +65,7 @@ class RemoteService: RemoteServiceProtocol {
     /// Array of Hooks that allow you to customize the Service call
     var strategies: [RemoteServiceStrategyProtocol]?
     
-    private let session: URLSession
+    private let session: URLSessionProtocol
     private let baseURL: URL
     
     /// Create an instance of RemoteService
@@ -73,14 +73,14 @@ class RemoteService: RemoteServiceProtocol {
     /// - Parameters:
     ///   - baseUrl: base URL service
     ///   - session: Session instance that will be used by this service
-    init(baseUrl: URL, session: URLSession, strategies: [RemoteServiceStrategyProtocol]? = nil) {
+    init(baseUrl: URL, session: URLSessionProtocol, strategies: [RemoteServiceStrategyProtocol]? = nil) {
         self.session = session
         self.baseURL = baseUrl
         self.strategies = strategies
     }
     
     @discardableResult
-    func call<T>(endpoint: Endpoint<T>, completion: @escaping (Result<T>) -> Void) -> URLSessionDataTask? {
+    func call<T>(endpoint: Endpoint<T>, completion: @escaping (Result<T>) -> Void) -> URLSessionDataTaskProtocol? {
         return self.callWithCompletionWrapper(endpoint: endpoint) { (result) in
             DispatchQueue.main.async {
                 completion(result)
@@ -89,7 +89,7 @@ class RemoteService: RemoteServiceProtocol {
     }
     
     @discardableResult
-    func callWithCompletionWrapper<T>(endpoint: Endpoint<T>, completion: @escaping (Result<T>) -> Void) -> URLSessionDataTask? {
+    func callWithCompletionWrapper<T>(endpoint: Endpoint<T>, completion: @escaping (Result<T>) -> Void) -> URLSessionDataTaskProtocol? {
         
         guard let urlComponents = self.buildURLComponents(for: endpoint) else {
             completion(.failure(RemoteServiceError.invalidURLComponents()))
@@ -106,7 +106,7 @@ class RemoteService: RemoteServiceProtocol {
 
         self.serviceCallStart(for: endpoint)
         
-        var dataTask: URLSessionDataTask?
+        var dataTask: URLSessionDataTaskProtocol?
         dataTask = self.session.dataTask(with: request) { [weak self] data, _, error in
             
             guard let strongSelf = self else { return }

@@ -54,6 +54,10 @@
 		EEC19B8C20AF18A0003333C7 /* StoryboardTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC19B8920AF18A0003333C7 /* StoryboardTest.swift */; };
 		EEC19B8D20AF18A0003333C7 /* StoryboardTest.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EEC19B8A20AF18A0003333C7 /* StoryboardTest.storyboard */; };
 		EEC19B9020AF1A5C003333C7 /* EndpointTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC19B8F20AF1A5B003333C7 /* EndpointTest.swift */; };
+		EEC19B9220AF3758003333C7 /* RemoteServiceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC19B9120AF3758003333C7 /* RemoteServiceTest.swift */; };
+		EEC19B9420AF4BAF003333C7 /* ModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC19B9320AF4BAF003333C7 /* ModelTest.swift */; };
+		EEC19B9620AF4C42003333C7 /* URLSessionMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC19B9520AF4C42003333C7 /* URLSessionMock.swift */; };
+		EEC19B9820AF4D1A003333C7 /* URLSessionProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC19B9720AF4D1A003333C7 /* URLSessionProtocol.swift */; };
 		EEDDDB85209F8E9700F82655 /* ITCrowdForecast.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEDDDB84209F8E9700F82655 /* ITCrowdForecast.swift */; };
 /* End PBXBuildFile section */
 
@@ -121,6 +125,10 @@
 		EEC19B8920AF18A0003333C7 /* StoryboardTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoryboardTest.swift; sourceTree = "<group>"; };
 		EEC19B8A20AF18A0003333C7 /* StoryboardTest.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = StoryboardTest.storyboard; sourceTree = "<group>"; };
 		EEC19B8F20AF1A5B003333C7 /* EndpointTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndpointTest.swift; sourceTree = "<group>"; };
+		EEC19B9120AF3758003333C7 /* RemoteServiceTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteServiceTest.swift; sourceTree = "<group>"; };
+		EEC19B9320AF4BAF003333C7 /* ModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelTest.swift; sourceTree = "<group>"; };
+		EEC19B9520AF4C42003333C7 /* URLSessionMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionMock.swift; sourceTree = "<group>"; };
+		EEC19B9720AF4D1A003333C7 /* URLSessionProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionProtocol.swift; sourceTree = "<group>"; };
 		EEDDDB84209F8E9700F82655 /* ITCrowdForecast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ITCrowdForecast.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -258,6 +266,7 @@
 		EE9F87C6209DE4680029AB7A /* Networking */ = {
 			isa = PBXGroup;
 			children = (
+				EEC19B9720AF4D1A003333C7 /* URLSessionProtocol.swift */,
 				EE9F87D7209E15600029AB7A /* Parser.swift */,
 				EE9F87C7209DE47B0029AB7A /* EndPoint.swift */,
 				EE9F87CD209DE95B0029AB7A /* RemoteService.swift */,
@@ -398,7 +407,10 @@
 		EEC19B8E20AF1A42003333C7 /* Networking */ = {
 			isa = PBXGroup;
 			children = (
+				EEC19B9520AF4C42003333C7 /* URLSessionMock.swift */,
+				EEC19B9320AF4BAF003333C7 /* ModelTest.swift */,
 				EEC19B8F20AF1A5B003333C7 /* EndpointTest.swift */,
+				EEC19B9120AF3758003333C7 /* RemoteServiceTest.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -577,6 +589,7 @@
 				EE567A3F20A087DF00DD0218 /* CityTableViewCell.swift in Sources */,
 				EE9F87DB209E1A0C0029AB7A /* LocalCitiesService.swift in Sources */,
 				EE413F8F20A242EE00EED014 /* Prediction.swift in Sources */,
+				EEC19B9820AF4D1A003333C7 /* URLSessionProtocol.swift in Sources */,
 				EE9F87D8209E15600029AB7A /* Parser.swift in Sources */,
 				EE567A4120A087DF00DD0218 /* CitySearchResultsViewController.swift in Sources */,
 				EE413F8020A21FB400EED014 /* ITCrowdStoryboard.swift in Sources */,
@@ -603,9 +616,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EEC19B9620AF4C42003333C7 /* URLSessionMock.swift in Sources */,
 				EEC19B9020AF1A5C003333C7 /* EndpointTest.swift in Sources */,
 				EEC19B8C20AF18A0003333C7 /* StoryboardTest.swift in Sources */,
 				EEC19B8B20AF18A0003333C7 /* CommonConfigTest.swift in Sources */,
+				EEC19B9220AF3758003333C7 /* RemoteServiceTest.swift in Sources */,
+				EEC19B9420AF4BAF003333C7 /* ModelTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
