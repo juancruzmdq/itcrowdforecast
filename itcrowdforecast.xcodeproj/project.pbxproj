@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		80FB90C35444E36492851E42 /* Pods_itcrowdforecast.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1CDAD4161E4C154DBD7F70B2 /* Pods_itcrowdforecast.framework */; };
 		EE01D09520A6003100820230 /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE01D09320A6003100820230 /* Environment.swift */; };
 		EE01D09620A6003100820230 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE01D09420A6003100820230 /* Config.swift */; };
 		EE01D09820A605EC00820230 /* ITCrowConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE01D09720A605EC00820230 /* ITCrowConfig.swift */; };
@@ -137,7 +136,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				80FB90C35444E36492851E42 /* Pods_itcrowdforecast.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

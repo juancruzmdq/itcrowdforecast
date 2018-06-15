@@ -3,29 +3,27 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 46;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		BD9FA13DAD2D596E9B5BDA53BC934C2B /* Pods-itcrowdforecast-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = D64C388DDA873DA767FAF3E69D31B559 /* Pods-itcrowdforecast-dummy.m */; };
 		C8B69400557D482BD7C7B79582B84785 /* Pods-itcrowdforecast-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = F9B67E0A8B469F812D7B8FF583768F9E /* Pods-itcrowdforecast-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		FCA43E68FF24F311E3F4C8667CD437B0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6604A7D69453B4569E4E4827FB9155A9 /* Foundation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		063EDDB5BA14837076B48E38254654D2 /* CLSAttributes.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CLSAttributes.h; path = iOS/Crashlytics.framework/Headers/CLSAttributes.h; sourceTree = "<group>"; };
 		385436593C43EECA3B94FCCEEABB4CA2 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Crashlytics.framework; path = iOS/Crashlytics.framework; sourceTree = "<group>"; };
-		3A08BC0F9F3B52227E7243D06BBEE2E8 /* Pods_itcrowdforecast.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_itcrowdforecast.framework; path = "Pods-itcrowdforecast.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3A08BC0F9F3B52227E7243D06BBEE2E8 /* Pods_itcrowdforecast.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_itcrowdforecast.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D1400E6973A99F89F5E4DB5BBB3880F /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Fabric.framework; path = iOS/Fabric.framework; sourceTree = "<group>"; };
 		659573F9510D6A4C941F2AFAE05DF485 /* Answers.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Answers.h; path = iOS/Crashlytics.framework/Headers/Answers.h; sourceTree = "<group>"; };
-		6604A7D69453B4569E4E4827FB9155A9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		68F73948863B62F0D87A9789B501E4D0 /* Pods-itcrowdforecast.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-itcrowdforecast.release.xcconfig"; sourceTree = "<group>"; };
 		6B7EFB84605177C7C88B7D8BE9255D99 /* Pods-itcrowdforecast.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-itcrowdforecast.modulemap"; sourceTree = "<group>"; };
 		7D648C15A7341C7E475204856B065E74 /* CLSLogging.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CLSLogging.h; path = iOS/Crashlytics.framework/Headers/CLSLogging.h; sourceTree = "<group>"; };
 		82929F368EBAD422F8A7B81ED6E25B26 /* Pods-itcrowdforecast-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-itcrowdforecast-frameworks.sh"; sourceTree = "<group>"; };
 		8C29099EBA5E72256CEAF17122CDD54C /* Crashlytics.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Crashlytics.h; path = iOS/Crashlytics.framework/Headers/Crashlytics.h; sourceTree = "<group>"; };
 		8E121B85DC951FB2003B23075BB8C45A /* Pods-itcrowdforecast-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-itcrowdforecast-acknowledgements.markdown"; sourceTree = "<group>"; };
-		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		B26A8EE7A45A02202E044DDACACCA225 /* CLSReport.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CLSReport.h; path = iOS/Crashlytics.framework/Headers/CLSReport.h; sourceTree = "<group>"; };
 		B58CDBBFC17BDBCAA0BABA7A1F2280FC /* Pods-itcrowdforecast-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-itcrowdforecast-resources.sh"; sourceTree = "<group>"; };
 		C12F80C3FCAA0BCF6771F39CFD9DE38C /* CLSStackFrame.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CLSStackFrame.h; path = iOS/Crashlytics.framework/Headers/CLSStackFrame.h; sourceTree = "<group>"; };
@@ -47,7 +45,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FCA43E68FF24F311E3F4C8667CD437B0 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -74,7 +71,6 @@
 			isa = PBXGroup;
 			children = (
 			);
-			name = SwiftLint;
 			path = SwiftLint;
 			sourceTree = "<group>";
 		};
@@ -135,7 +131,6 @@
 				289C6A27D973D01B1E5B060FA022DA5D /* Core */,
 				082640F0B5C3C5C5CF67123558929DE0 /* Crashes */,
 			);
-			name = AppCenter;
 			path = AppCenter;
 			sourceTree = "<group>";
 		};
@@ -157,7 +152,6 @@
 				D81F9D8FDC4D4CC5229F4D55D6442321 /* Fabric.h */,
 				2DC40CB09BA8ADE1BC464D06C5EE2FD6 /* Frameworks */,
 			);
-			name = Fabric;
 			path = Fabric;
 			sourceTree = "<group>";
 		};
@@ -207,7 +201,6 @@
 		D35AF013A5F0BAD4F32504907A52519E /* iOS */ = {
 			isa = PBXGroup;
 			children = (
-				6604A7D69453B4569E4E4827FB9155A9 /* Foundation.framework */,
 			);
 			name = iOS;
 			sourceTree = "<group>";
@@ -232,7 +225,6 @@
 				8C29099EBA5E72256CEAF17122CDD54C /* Crashlytics.h */,
 				D28AA9CCA18F5B4121BCB77BC800978A /* Frameworks */,
 			);
-			name = Crashlytics;
 			path = Crashlytics;
 			sourceTree = "<group>";
 		};
