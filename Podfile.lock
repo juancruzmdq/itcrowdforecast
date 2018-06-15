@@ -1,25 +1,36 @@
 PODS:
+  - AppCenter (1.6.1):
+    - AppCenter/Analytics (= 1.6.1)
+    - AppCenter/Crashes (= 1.6.1)
+  - AppCenter/Analytics (1.6.1):
+    - AppCenter/Core
+  - AppCenter/Core (1.6.1)
+  - AppCenter/Crashes (1.6.1):
+    - AppCenter/Core
   - Crashlytics (3.10.1):
     - Fabric (~> 1.7.5)
   - Fabric (1.7.6)
   - SwiftLint (0.25.1)
 
 DEPENDENCIES:
+  - AppCenter
   - Crashlytics
   - Fabric
   - SwiftLint
 
 SPEC REPOS:
-  https://github.com/CocoaPods/Specs.git:
+  https://github.com/cocoapods/specs.git:
+    - AppCenter
     - Crashlytics
     - Fabric
     - SwiftLint
 
 SPEC CHECKSUMS:
+  AppCenter: f9eb653a45cece34549232f295aec05260dfc24f
   Crashlytics: aee1a064cbbf99b32efa3f056a5f458d846bc8ff
   Fabric: f8d42c893bb187326a7968b62abe55c36a987a46
   SwiftLint: ce933681be10c3266e82576dad676fa815a602e9
 
-PODFILE CHECKSUM: f4fc644cec92c820c61135b9c7d654018b434547
+PODFILE CHECKSUM: 8dfa415391d097d8120e55fef4870dd4b9beb30b
 
-COCOAPODS: 1.5.0
+COCOAPODS: 1.5.3

@@ -8,4 +8,5 @@ target 'itcrowdforecast' do
   pod 'Fabric'
   pod 'Crashlytics'
   pod 'SwiftLint'
+  pod 'AppCenter'
 end

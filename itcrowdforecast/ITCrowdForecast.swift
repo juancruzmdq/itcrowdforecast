@@ -8,6 +8,10 @@
 import Foundation
 import Fabric
 import Crashlytics
+import AppCenter
+import AppCenterAnalytics
+import AppCenterCrashes
+import AppCenter
 
 class ITCrowdForecast {
     
@@ -21,6 +25,11 @@ class ITCrowdForecast {
     init() {
         
         Fabric.with([Crashlytics.self])
+
+        MSAppCenter.start("6d98a03d-6868-4589-8f86-d25d7390f718", withServices: [
+            MSAnalytics.self,
+            MSCrashes.self
+            ])
         
         self.config = Config(bundle: .main, locale: .current)
 
