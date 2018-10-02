@@ -18,7 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         MainPresenter(itCrowdForecast: self.itCrowdForecast)
     }()
 
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
                 
         self.mainPresenter.presentMainUI()
         

@@ -58,7 +58,7 @@ private extension CityListViewController {
     
     func buildRefreshControl() {
         let refreshControl = UIRefreshControl()
-        refreshControl.addTarget(self, action: #selector(type(of: self).refreshControl(_:)), for: UIControlEvents.valueChanged)
+        refreshControl.addTarget(self, action: #selector(type(of: self).refreshControl(_:)), for: UIControl.Event.valueChanged)
         self.tableView.addSubview(refreshControl)
 
         self.tableView.refreshControl = refreshControl
@@ -106,7 +106,7 @@ extension CityListViewController {
         }
     }
     
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             if let city = self.viewModel?.cities?[indexPath.row] {
                 // Do the delete animation here instad of wait the NSFetchedResultsController.didChange, due the delete animation looks better if is executed after the user swipe the cell
@@ -160,7 +160,9 @@ extension CityListViewController: CityListViewModelDelegate {
 
     func cityListViewModel(_ cityListViewModel: CityListViewModel, loading: Bool) {
         if !loading {
-            self.tableView.refreshControl?.endRefreshing()
+            DispatchQueue.main.async {
+                self.tableView.refreshControl?.endRefreshing()
+            }
         }
     }
 

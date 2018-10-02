@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AFE697BCA8757B983E8E4425 /* Pods_itcrowdforecast.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1CDAD4161E4C154DBD7F70B2 /* Pods_itcrowdforecast.framework */; };
 		EE01D09520A6003100820230 /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE01D09320A6003100820230 /* Environment.swift */; };
 		EE01D09620A6003100820230 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE01D09420A6003100820230 /* Config.swift */; };
 		EE01D09820A605EC00820230 /* ITCrowConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE01D09720A605EC00820230 /* ITCrowConfig.swift */; };
@@ -136,6 +137,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AFE697BCA8757B983E8E4425 /* Pods_itcrowdforecast.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -465,9 +467,11 @@
 				TargetAttributes = {
 					EEB87451209D15B40055981A = {
 						CreatedOnToolsVersion = 9.3;
+						LastSwiftMigration = 1000;
 					};
 					EEB87465209D15B60055981A = {
 						CreatedOnToolsVersion = 9.3;
+						LastSwiftMigration = 1000;
 						TestTargetID = EEB87451209D15B40055981A;
 					};
 				};
@@ -544,7 +548,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Fabric/run\" 66945054803e3abe2777297373bb30e74df02916 db5017c7303478c320f0713177ff7b34c8b96f52c90e3e9b79a8ca0c5b9db1b8";
+			shellScript = "\"${PODS_ROOT}/Fabric/run\" 66945054803e3abe2777297373bb30e74df02916 db5017c7303478c320f0713177ff7b34c8b96f52c90e3e9b79a8ca0c5b9db1b8\n";
 		};
 		EEB874B6209DDF050055981A /* swiftlint */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -558,7 +562,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if which swiftlint >/dev/null; then\nswiftlint\nelse\necho \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi";
+			shellScript = "\"${PODS_ROOT}/SwiftLint/swiftlint\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -776,7 +780,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = ar.com.juancruzmdq.itcrowdforecast;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -795,7 +799,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = ar.com.juancruzmdq.itcrowdforecast;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -815,7 +819,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = ar.com.juancruzmdq.itcrowdforecastTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/itcrowdforecast.app/itcrowdforecast";
 			};
@@ -836,7 +840,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = ar.com.juancruzmdq.itcrowdforecastTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/itcrowdforecast.app/itcrowdforecast";
 			};
